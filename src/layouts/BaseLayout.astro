@@ -30,12 +30,16 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     />
   </head>
   <body>
+    <!-- Skip link for keyboard users -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#922c37] text-white px-4 py-2 rounded-lg text-sm z-[100]">Zum Inhalt springen</a>
+
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl">
       <div class="max-w-6xl mx-auto px-6">
         <div class="h-16 flex items-end justify-between pb-2">
           <a href="/" class="flex items-end">
             <img src="/windmill.svg" alt="Praxis van Dinther" class="h-12 w-auto" />
           </a>
+          <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-8 pb-1">
             <a href="#zeiten" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Öffnungszeiten</a>
             <a href="#leistungen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Leistungen</a>
@@ -43,7 +47,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
             <a href="#wissen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Wissen</a>
             <a href="#kontakt" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Kontakt</a>
           </div>
-          <div class="pb-1">
+          <div class="flex items-center gap-3 pb-1">
             <a
               href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
               target="_blank"
@@ -52,16 +56,105 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
             >
               Termin buchen
             </a>
+            <!-- Mobile hamburger -->
+            <button
+              id="menu-toggle"
+              aria-label="Menü öffnen"
+              aria-expanded="false"
+              aria-controls="mobile-menu"
+              class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-[#F5F5F7] transition-colors"
+            >
+              <span class="block w-5 h-px bg-[#1D1D1F] transition-all duration-200" id="bar1"></span>
+              <span class="block w-5 h-px bg-[#1D1D1F] transition-all duration-200" id="bar2"></span>
+              <span class="block w-5 h-px bg-[#1D1D1F] transition-all duration-200" id="bar3"></span>
+            </button>
           </div>
         </div>
-        <!-- Bordeaux-Linie — setzt die Grundlinie der Windmühle fort -->
+        <!-- Bordeaux-Linie -->
         <div class="h-[1.5px] bg-[#922c37]"></div>
+      </div>
+      <!-- Mobile menu drawer -->
+      <div
+        id="mobile-menu"
+        class="md:hidden hidden bg-white border-b border-[#E8E8ED]"
+        role="navigation"
+        aria-label="Mobile Navigation"
+      >
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
+          <a href="#zeiten" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Öffnungszeiten</a>
+          <a href="#leistungen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Leistungen</a>
+          <a href="#team" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Team</a>
+          <a href="#wissen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Wissen</a>
+          <a href="#kontakt" class="mobile-nav-link py-3 text-base text-[#1D1D1F] hover:text-[#922c37] transition-colors">Kontakt</a>
+        </div>
       </div>
     </header>
 
-    <main>
+    <!-- Fixierter CTA auf Mobile -->
+    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-t border-[#E8E8ED] px-4 py-3 safe-bottom">
+      <a
+        href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
+        target="_blank"
+        rel="noopener"
+        class="block w-full bg-[#922c37] text-white rounded-full py-3.5 text-base font-medium text-center hover:bg-[#7a2430] transition-colors"
+      >
+        Termin buchen
+      </a>
+    </div>
+
+    <main id="main-content" class="pb-20 md:pb-0">
       <slot />
     </main>
+
+    <script>
+      // Mobile menu toggle
+      const toggle = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const bar1 = document.getElementById('bar1');
+      const bar2 = document.getElementById('bar2');
+      const bar3 = document.getElementById('bar3');
+
+      toggle?.addEventListener('click', () => {
+        const isOpen = menu?.classList.contains('hidden') === false;
+        menu?.classList.toggle('hidden');
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        toggle.setAttribute('aria-label', isOpen ? 'Menü öffnen' : 'Menü schließen');
+        if (!isOpen) {
+          bar1?.classList.add('rotate-45', 'translate-y-[6px]');
+          bar2?.classList.add('opacity-0');
+          bar3?.classList.add('-rotate-45', '-translate-y-[6px]');
+        } else {
+          bar1?.classList.remove('rotate-45', 'translate-y-[6px]');
+          bar2?.classList.remove('opacity-0');
+          bar3?.classList.remove('-rotate-45', '-translate-y-[6px]');
+        }
+      });
+
+      // Close on nav link click
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          menu?.classList.add('hidden');
+          toggle?.setAttribute('aria-expanded', 'false');
+          toggle?.setAttribute('aria-label', 'Menü öffnen');
+          bar1?.classList.remove('rotate-45', 'translate-y-[6px]');
+          bar2?.classList.remove('opacity-0');
+          bar3?.classList.remove('-rotate-45', '-translate-y-[6px]');
+        });
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', (e) => {
+          const href = anchor.getAttribute('href');
+          if (!href || href === '#') return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    </script>
 
     <footer class="bg-[#F5F5F7] border-t border-[#E8E8ED] mt-24">
       <div class="max-w-6xl mx-auto px-6 py-16">

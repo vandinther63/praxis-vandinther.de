@@ -10,39 +10,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ═══════════════════════════════════════════
        HERO
   ═══════════════════════════════════════════ -->
-  <section id="start" class="relative overflow-hidden bg-white">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,_rgba(146,44,55,0.06)_0%,_transparent_55%)] pointer-events-none"></div>
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-      <span class="text-[180px] lg:text-[300px] font-black text-[#F5F5F7] leading-none tracking-tighter whitespace-nowrap">
-        van Dinther
-      </span>
-    </div>
-    <div class="relative max-w-6xl mx-auto px-6 py-32 lg:py-48">
-      <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-6">
-        Krefeld · Allgemeinmedizin
-      </p>
-      <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-[#1D1D1F] max-w-2xl leading-tight mb-6">
-        Ihre Hausarzt&shy;praxis in Krefeld.
-      </h1>
-      <p class="text-lg lg:text-xl text-[#6E6E73] max-w-xl leading-relaxed mb-10">
-        Frank van Dinther, Facharzt für Allgemeinmedizin.
-        Am schnellsten erreichen Sie uns über Doctolib.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a
-          href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
-          target="_blank"
-          rel="noopener"
-          class="inline-flex items-center justify-center gap-2 bg-[#922c37] text-white rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors"
-        >
-          Termin buchen
-        </a>
-        <a
-          href="#kontakt"
-          class="inline-flex items-center justify-center bg-[#F5F5F7] text-[#1D1D1F] rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#E8E8ED] transition-colors"
-        >
-          Kontakt aufnehmen
-        </a>
+  <section id="start" class="relative bg-white">
+    <div class="max-w-6xl mx-auto px-6 py-28 lg:py-40 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+      <div class="max-w-2xl">
+        <!-- Bordeaux accent line -->
+        <div class="w-10 h-[3px] bg-[#922c37] mb-8 rounded-full"></div>
+        <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-5">
+          Krefeld · Allgemeinmedizin
+        </p>
+        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-[#1D1D1F] leading-[1.05] mb-6">
+          Ihre Hausarzt&shy;praxis in Krefeld.
+        </h1>
+        <p class="text-lg lg:text-xl text-[#6E6E73] leading-relaxed mb-10 max-w-lg">
+          Frank van Dinther, Facharzt für Allgemeinmedizin.
+          Am schnellsten erreichen Sie uns über Doctolib.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center bg-[#922c37] text-white rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors"
+          >
+            Termin buchen
+          </a>
+          <a
+            href="#kontakt"
+            class="inline-flex items-center justify-center bg-[#F5F5F7] text-[#1D1D1F] rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#E8E8ED] transition-colors"
+          >
+            Kontakt aufnehmen
+          </a>
+        </div>
+      </div>
+      <!-- Typografisches Gegengewicht rechts -->
+      <div class="hidden lg:block text-right shrink-0 pb-2">
+        <p class="text-[11rem] font-black leading-none tracking-tighter text-[#F5F5F7] select-none" aria-hidden="true">vD</p>
+        <p class="text-sm text-[#E8E8ED] tracking-widest uppercase select-none" aria-hidden="true">Praxis · Krefeld</p>
       </div>
     </div>
   </section>
@@ -311,7 +314,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="flex flex-col md:flex-row gap-6">
         <!-- Arzt -->
         <div class="bg-white rounded-3xl p-10 flex items-start gap-8 md:flex-1">
-          <div class="w-20 h-20 rounded-2xl bg-[#1D1D1F] flex items-center justify-center shrink-0">
+          <div class="w-20 h-20 rounded-2xl bg-[#922c37] flex items-center justify-center shrink-0">
             <span class="text-xl font-semibold text-white">FvD</span>
           </div>
           <div>
@@ -647,7 +650,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
           <!-- Feedback -->
           <div id="form-success" class="hidden bg-[#F0FAF4] border border-[#4ADE80] rounded-xl p-5">
-            <p class="text-sm font-medium text-[#166534]">Vielen Dank — Ihre Nachricht ist bei uns eingegangen. Wir melden uns so bald wie möglich.</p>
+            <p class="text-sm font-medium text-[#166534]">Vielen Dank — Ihre Nachricht ist bei uns eingegangen. Wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.</p>
           </div>
           <div id="form-error" class="hidden bg-[#FEF2F2] border border-[#EF4444] rounded-xl p-5">
             <p class="text-sm font-medium text-[#991B1B]">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href="tel:021514789890" class="underline">02151 478989</a></p>
