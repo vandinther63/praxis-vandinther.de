@@ -33,26 +33,26 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <!-- Skip link for keyboard users -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#922c37] text-white px-4 py-2 rounded-lg text-sm z-[100]">Zum Inhalt springen</a>
 
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl">
+    <header id="site-nav" class="sticky top-0 z-50 transition-all duration-300 nav-hero">
       <div class="max-w-6xl mx-auto px-6">
         <div class="h-16 flex items-end justify-between pb-2">
           <a href="/" class="flex items-end">
-            <img src="/windmill.svg" alt="Praxis van Dinther" class="h-12 w-auto" />
+            <img src="/windmill.svg" alt="Praxis van Dinther" class="h-12 w-auto nav-logo" />
           </a>
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-8 pb-1">
-            <a href="#zeiten" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Öffnungszeiten</a>
-            <a href="#leistungen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Leistungen</a>
-            <a href="#team" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Team</a>
-            <a href="#wissen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Wissen</a>
-            <a href="#kontakt" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Kontakt</a>
+            <a href="#zeiten" class="text-sm nav-link transition-colors">Öffnungszeiten</a>
+            <a href="#leistungen" class="text-sm nav-link transition-colors">Leistungen</a>
+            <a href="#team" class="text-sm nav-link transition-colors">Team</a>
+            <a href="#wissen" class="text-sm nav-link transition-colors">Wissen</a>
+            <a href="#kontakt" class="text-sm nav-link transition-colors">Kontakt</a>
           </div>
           <div class="flex items-center gap-3 pb-1">
             <a
               href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
               target="_blank"
               rel="noopener"
-              class="bg-[#922c37] text-white rounded-full px-5 py-2 text-sm font-medium hover:bg-[#7a2430] transition-colors"
+              class="nav-cta rounded-full px-5 py-2 text-sm font-medium transition-colors"
             >
               Termin buchen
             </a>
@@ -70,8 +70,6 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
             </button>
           </div>
         </div>
-        <!-- Bordeaux-Linie -->
-        <div class="h-[1.5px] bg-[#922c37]"></div>
       </div>
       <!-- Mobile menu drawer -->
       <div
@@ -154,7 +152,58 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
           }
         });
       });
+
+      // Nav: frosted glass over hero → white when scrolled past hero
+      const nav = document.getElementById('site-nav');
+      const hero = document.getElementById('start');
+      function updateNav() {
+        if (!nav || !hero) return;
+        const heroBottom = hero.offsetTop + hero.offsetHeight - 80;
+        if (window.scrollY > heroBottom) {
+          nav.classList.remove('nav-hero');
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+          nav.classList.add('nav-hero');
+        }
+      }
+      window.addEventListener('scroll', updateNav, { passive: true });
+      updateNav();
     </script>
+
+    <style>
+      /* Nav over hero: frosted glass, white text */
+      .nav-hero {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .nav-hero .nav-link { color: rgba(255,255,255,0.75); }
+      .nav-hero .nav-link:hover { color: #fff; }
+      .nav-hero .nav-cta {
+        background: rgba(255,255,255,0.15);
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.3);
+      }
+      .nav-hero .nav-cta:hover { background: rgba(255,255,255,0.25); }
+
+      /* Nav after hero: clean white */
+      .nav-scrolled {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid #E8E8ED;
+      }
+      .nav-scrolled .nav-link { color: #6E6E73; }
+      .nav-scrolled .nav-link:hover { color: #1D1D1F; }
+      .nav-scrolled .nav-cta { background: #922c37; color: #fff; border: none; }
+      .nav-scrolled .nav-cta:hover { background: #7a2430; }
+
+      /* Hamburger bars color per state */
+      .nav-hero #bar1, .nav-hero #bar2, .nav-hero #bar3 { background: #fff !important; }
+      .nav-scrolled #bar1, .nav-scrolled #bar2, .nav-scrolled #bar3 { background: #1D1D1F !important; }
+    </style>
 
     <footer class="bg-[#F5F5F7] border-t border-[#E8E8ED] mt-24">
       <div class="max-w-6xl mx-auto px-6 py-16">

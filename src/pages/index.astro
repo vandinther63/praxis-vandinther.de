@@ -10,10 +10,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ═══════════════════════════════════════════
        HERO
   ═══════════════════════════════════════════ -->
-  <section id="start" class="hero" style="background:#1a0608;position:relative;overflow:hidden;">
+  <section id="start" class="hero" style="background:#1a0608;position:relative;overflow:hidden;margin-top:-64px;padding-top:64px;">
     <canvas id="hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
 
-    <div style="position:relative;z-index:1;" class="max-w-6xl mx-auto px-6 py-28 lg:py-44 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+    <div style="position:relative;z-index:1;" class="max-w-6xl mx-auto px-6 pt-20 pb-16 lg:pt-28 lg:pb-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
       <div class="max-w-2xl">
         <div class="w-10 h-[3px] mb-8 rounded-full" style="background:rgba(255,255,255,0.5);"></div>
         <p class="text-sm font-semibold tracking-widest uppercase mb-5" style="color:rgba(255,255,255,0.6);">
@@ -52,6 +52,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="hidden lg:block text-right shrink-0 pb-2">
         <p class="text-[11rem] font-black leading-none tracking-tighter select-none" style="color:rgba(255,255,255,0.08);" aria-hidden="true">vD</p>
         <p class="text-sm tracking-widest uppercase select-none" style="color:rgba(255,255,255,0.15);" aria-hidden="true">Praxis · Krefeld</p>
+      </div>
+    </div>
+
+    <!-- Trust bar — Frosted Glass innerhalb der Hero-Sektion -->
+    <div style="position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.12);">
+      <div style="background:rgba(255,255,255,0.07);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);">
+        <div class="max-w-6xl mx-auto px-6 py-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:divide-x" style="--tw-divide-opacity:1;">
+            <div class="md:pr-6" style="border-color:rgba(255,255,255,0.15);">
+              <p class="text-xs font-semibold tracking-widest uppercase mb-1" style="color:rgba(255,255,255,0.45);">Ausbildung</p>
+              <p class="text-sm" style="color:rgba(255,255,255,0.85);">Akademische Lehrpraxis · HHU Düsseldorf</p>
+            </div>
+            <div class="md:px-6" style="border-left:1px solid rgba(255,255,255,0.15);">
+              <p class="text-xs font-semibold tracking-widest uppercase mb-1" style="color:rgba(255,255,255,0.45);">Weiterbildung</p>
+              <p class="text-sm" style="color:rgba(255,255,255,0.85);">Weiterbildungspraxis · Ärztekammer Nordrhein</p>
+            </div>
+            <div class="md:pl-6" style="border-left:1px solid rgba(255,255,255,0.15);">
+              <p class="text-xs font-semibold tracking-widest uppercase mb-1" style="color:rgba(255,255,255,0.45);">Fachgebiet</p>
+              <p class="text-sm" style="color:rgba(255,255,255,0.85);">Facharzt für Allgemeinmedizin · Chirotherapie</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -158,25 +180,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </script>
 
 
-  <!-- Trust bar -->
-  <div class="border-y border-[#E8E8ED]">
-    <div class="max-w-6xl mx-auto px-6 py-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:divide-x divide-[#E8E8ED]">
-        <div class="md:pr-6">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-1">Ausbildung</p>
-          <p class="text-sm text-[#1D1D1F]">Akademische Lehrpraxis · HHU Düsseldorf</p>
-        </div>
-        <div class="md:px-6">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-1">Weiterbildung</p>
-          <p class="text-sm text-[#1D1D1F]">Weiterbildungspraxis · Ärztekammer Nordrhein</p>
-        </div>
-        <div class="md:pl-6">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-1">Fachgebiet</p>
-          <p class="text-sm text-[#1D1D1F]">Facharzt für Allgemeinmedizin · Chirotherapie</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ═══════════════════════════════════════════
        KONTAKT-HIERARCHIE (Herzstück der Seite)
