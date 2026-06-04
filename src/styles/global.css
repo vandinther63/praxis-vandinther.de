@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "geist/dist/font.css";
+
+:root {
+  --color-surface: #F5F5F7;
+  --color-border: #E8E8ED;
+  --color-text-primary: #1D1D1F;
+  --color-text-secondary: #6E6E73;
+  --color-text-tertiary: #86868B;
+  --color-accent: #0071E3;
+  --color-accent-light: #EBF2FF;
+}
+
+html {
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  color: var(--color-text-primary);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}

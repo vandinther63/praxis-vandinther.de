@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const team = {
+  arzt: {
+    name: 'Frank van Dinther',
+    titel: 'Facharzt für Allgemeinmedizin',
+    qualifikationen: [
+      'Manuelle Medizin (Chirotherapie)',
+      'Lehrbeauftragter IFAM · HHU Düsseldorf',
+      'Weiterbildungsermächtigung · ÄK Nordrhein',
+    ],
+    initials: 'FvD',
+  },
+  mfa: [
+    { name: 'Astrid Vermeulen', initials: 'AV' },
+    { name: 'Bianka Gröters', initials: 'BG' },
+    { name: 'Denise Gerhards-Hamm', initials: 'DGH' },
+  ],
+};
+---
+
+<BaseLayout title="Das Team" description="Lernen Sie das Team der Praxis van Dinther in Krefeld kennen.">
+
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Das Team</p>
+    <h1 class="text-5xl font-semibold tracking-tight text-[#1D1D1F] mb-16">Ihr Team in Krefeld.</h1>
+
+    <!-- Arzt -->
+    <div class="mb-16">
+      <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-8">Arzt</p>
+      <div class="bg-[#F5F5F7] rounded-3xl p-10 flex flex-col md:flex-row gap-10 items-start max-w-2xl">
+        <div class="w-24 h-24 rounded-2xl bg-[#0071E3] flex items-center justify-center shrink-0">
+          <span class="text-2xl font-semibold text-white">{team.arzt.initials}</span>
+        </div>
+        <div>
+          <h2 class="text-2xl font-semibold tracking-tight text-[#1D1D1F]">{team.arzt.name}</h2>
+          <p class="text-base text-[#6E6E73] mt-1">{team.arzt.titel}</p>
+          <div class="mt-6 space-y-2">
+            {team.arzt.qualifikationen.map(q => (
+              <div class="flex items-center gap-3">
+                <div class="w-1 h-1 rounded-full bg-[#0071E3] shrink-0"></div>
+                <p class="text-sm text-[#6E6E73]">{q}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MFA -->
+    <div class="border-t border-[#E8E8ED] pt-16">
+      <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-8">Medizinische Fachangestellte</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {team.mfa.map(person => (
+          <div class="bg-[#F5F5F7] rounded-2xl p-8 flex items-center gap-6">
+            <div class="w-14 h-14 rounded-xl bg-[#E8E8ED] flex items-center justify-center shrink-0">
+              <span class="text-sm font-semibold text-[#6E6E73]">{person.initials}</span>
+            </div>
+            <div>
+              <p class="text-base font-medium text-[#1D1D1F]">{person.name}</p>
+              <p class="text-sm text-[#86868B]">Med. Fachangestellte</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

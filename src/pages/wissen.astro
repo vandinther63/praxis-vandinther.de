@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Patienteninformationen" description="Gesundheitstipps und weiterführende Links der Praxis van Dinther.">
+
+  <section class="max-w-6xl mx-auto px-6 py-24">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Wissen</p>
+    <h1 class="text-5xl font-semibold tracking-tight text-[#1D1D1F] mb-6">Patienteninformationen.</h1>
+    <p class="text-lg text-[#6E6E73] max-w-xl leading-relaxed mb-20">
+      Hilfreiche Informationen und Empfehlungen rund um Ihre Gesundheit.
+    </p>
+
+    <!-- Infektionsschutz -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-semibold tracking-tight text-[#1D1D1F] mb-8">Infektionsschutz-Tipps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
+        {[
+          { icon: '🧼', tip: 'Hände gründlich mit Wasser und Seife waschen' },
+          { icon: '💪', tip: 'Husten und Niesen in die Armbeuge' },
+          { icon: '🗑️', tip: 'Einwegtaschentücher sofort in verschlossenen Mülleimer' },
+          { icon: '↔️', tip: 'Mindestens 1,5 m Abstand zu erkrankten Personen' },
+        ].map(({ icon, tip }) => (
+          <div class="bg-[#F5F5F7] rounded-2xl p-6 flex items-start gap-4">
+            <span class="text-2xl">{icon}</span>
+            <p class="text-base text-[#6E6E73] leading-relaxed">{tip}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="border-t border-[#E8E8ED] pt-16">
+      <h2 class="text-3xl font-semibold tracking-tight text-[#1D1D1F] mb-8">Weiterführende Links</h2>
+      <div class="space-y-3 max-w-xl">
+        {[
+          { href: 'https://www.rauchfrei-info.de', label: 'rauchfrei-info.de', desc: 'Informationen zum Rauchstopp' },
+          { href: 'https://www.arztsuche-nordrhein.de', label: 'arztsuche-nordrhein.de', desc: 'Arztsuche Nordrhein' },
+          { href: 'https://www.kbv.de/html/patienteninformationen.php', label: 'KBV Patienteninformationen', desc: 'Kassenärztliche Bundesvereinigung' },
+        ].map(({ href, label, desc }) => (
+          <a href={href} target="_blank" rel="noopener" class="flex items-center justify-between py-4 border-b border-[#E8E8ED] hover:text-[#0071E3] transition-colors group">
+            <div>
+              <p class="text-base font-medium text-[#1D1D1F] group-hover:text-[#0071E3]">{label}</p>
+              <p class="text-sm text-[#86868B]">{desc}</p>
+            </div>
+            <span class="text-[#86868B] group-hover:text-[#0071E3]">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
