@@ -30,27 +30,32 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     />
   </head>
   <body>
-    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#E8E8ED]">
-      <nav class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-3">
-          <img src="/windmill.svg" alt="Praxis van Dinther" class="h-7 w-auto" />
-          <span class="text-base font-semibold text-[#1D1D1F] tracking-tight hidden sm:inline">Praxis van Dinther</span>
-        </a>
-        <div class="hidden md:flex items-center gap-8">
-          <a href="#zeiten" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Öffnungszeiten</a>
-          <a href="#leistungen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Leistungen</a>
-          <a href="#team" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Team</a>
-          <a href="#kontakt" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Kontakt</a>
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="h-16 flex items-end justify-between pb-2">
+          <a href="/" class="flex items-end">
+            <img src="/windmill.svg" alt="Praxis van Dinther" class="h-12 w-auto" />
+          </a>
+          <div class="hidden md:flex items-center gap-8 pb-1">
+            <a href="#zeiten" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Öffnungszeiten</a>
+            <a href="#leistungen" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Leistungen</a>
+            <a href="#team" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Team</a>
+            <a href="#kontakt" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Kontakt</a>
+          </div>
+          <div class="pb-1">
+            <a
+              href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
+              target="_blank"
+              rel="noopener"
+              class="border border-[#1D1D1F] bg-white text-[#1D1D1F] rounded-full px-5 py-2 text-sm font-medium hover:bg-[#1D1D1F] hover:text-white transition-colors"
+            >
+              Termin buchen
+            </a>
+          </div>
         </div>
-        <a
-          href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
-          target="_blank"
-          rel="noopener"
-          class="bg-[#1D1D1F] text-white rounded-full px-5 py-2 text-sm font-medium hover:bg-[#3A3A3C] transition-colors"
-        >
-          Termin buchen
-        </a>
-      </nav>
+        <!-- Bordeaux-Linie — setzt die Grundlinie der Windmühle fort -->
+        <div class="h-[1.5px] bg-[#922c37]"></div>
+      </div>
     </header>
 
     <main>
