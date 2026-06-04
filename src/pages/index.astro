@@ -303,50 +303,129 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   ═══════════════════════════════════════════ -->
   <section id="zeiten" class="bg-[#F5F5F7] py-24">
     <div class="max-w-6xl mx-auto px-6">
-      <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Öffnungszeiten</p>
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Sprechzeiten</p>
       <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Wann wir für Sie da sind.</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div class="bg-white rounded-2xl p-8">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Termin-Sprechstunde</p>
+      <!-- Sprechzeiten-Karten mit Live-Status -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
+        <!-- Termin-Sprechstunde -->
+        <div class="hours-card bg-white rounded-2xl p-8 flex flex-col">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B]">Termin-Sprechstunde</p>
+            <div class="flex items-center gap-1.5">
+              <span class="live-dot w-2 h-2 rounded-full" style="background:#ccc;"></span>
+              <span class="live-label text-xs" style="color:#999;">Aktuell geschlossen</span>
+            </div>
+          </div>
           <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 08:30–10:00 Uhr</p>
           <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 16:00–17:00 Uhr</p>
+          <a
+            href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
+            target="_blank"
+            rel="noopener"
+            class="mt-4 text-sm font-medium text-[#922c37] hover:underline"
+          >
+            Termin buchen via Doctolib →
+          </a>
         </div>
-        <div class="bg-white rounded-2xl p-8">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Ohne Termin</p>
+
+        <!-- Ohne Termin -->
+        <div class="hours-card bg-white rounded-2xl p-8">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B]">Ohne Termin</p>
+            <div class="flex items-center gap-1.5">
+              <span class="live-dot w-2 h-2 rounded-full" style="background:#ccc;"></span>
+              <span class="live-label text-xs" style="color:#999;">Aktuell geschlossen</span>
+            </div>
+          </div>
           <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 10:00–11:00 Uhr</p>
           <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 17:00–18:00 Uhr</p>
         </div>
-        <div class="bg-[#FFF9EB] border border-[#F59E0B] rounded-2xl p-8">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#92400E] mb-4">Infekt-Sprechstunde</p>
+
+        <!-- Infekt-Sprechstunde -->
+        <div class="hours-card bg-[#FFF9EB] border border-[#F59E0B] rounded-2xl p-8">
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-xs font-semibold tracking-widest uppercase text-[#92400E]">Infekt-Sprechstunde</p>
+            <div class="flex items-center gap-1.5">
+              <span class="live-dot w-2 h-2 rounded-full" style="background:#ccc;"></span>
+              <span class="live-label text-xs" style="color:#999;">Aktuell geschlossen</span>
+            </div>
+          </div>
           <p class="text-base text-[#92400E]">Mo–Do &nbsp; 11:00–12:00 Uhr</p>
           <p class="text-sm text-[#92400E] mt-3">Nur mit FFP2-Maske.<br/>Kein Termin buchbar.</p>
         </div>
       </div>
 
-      <!-- Betriebsferien -->
-      <div class="bg-white rounded-2xl p-8 max-w-lg">
-        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien 2026</p>
-        <div class="space-y-3">
-          <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
-            <span class="text-[#1D1D1F]">Brückentag</span>
-            <span class="text-[#6E6E73]">05. Juni 2026</span>
-          </div>
-          <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
-            <span class="text-[#1D1D1F]">Sommerurlaub</span>
-            <span class="text-[#6E6E73]">03.–18. August 2026</span>
-          </div>
-          <div class="flex justify-between text-sm">
-            <span class="text-[#1D1D1F]">Jahreswechsel</span>
-            <span class="text-[#6E6E73]">18.–31. Dezember 2026</span>
+      <!-- Betriebsferien + Notfallvertretung nebeneinander -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="bg-white rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien 2026</p>
+          <div class="space-y-3">
+            <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
+              <span class="text-[#1D1D1F]">Brückentag</span>
+              <span class="text-[#6E6E73]">05. Juni 2026</span>
+            </div>
+            <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
+              <span class="text-[#1D1D1F]">Sommerurlaub</span>
+              <span class="text-[#6E6E73]">03.–18. August 2026</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-[#1D1D1F]">Jahreswechsel</span>
+              <span class="text-[#6E6E73]">18.–31. Dezember 2026</span>
+            </div>
           </div>
         </div>
-        <div class="mt-6 pt-5 border-t border-[#E8E8ED]">
-          <p class="text-xs text-[#86868B]">Notfallvertretung: Dr. Elvi Tudor · Tel. <a href="tel:02151481148" class="text-[#1D1D1F]">02151 481148</a></p>
+
+        <div class="bg-white rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Notfallvertretung</p>
+          <div class="space-y-4">
+            <div>
+              <p class="text-base font-medium text-[#1D1D1F]">Dr. Elvi Tudor</p>
+              <p class="text-sm text-[#6E6E73]">Alte Krefelder Straße 20 · 47829 Krefeld</p>
+              <a href="tel:02151481148" class="text-sm text-[#922c37] hover:underline">02151 481148</a>
+            </div>
+            <div class="border-t border-[#E8E8ED] pt-4">
+              <p class="text-xs text-[#86868B] mb-1">Ärztlicher Bereitschaftsdienst</p>
+              <a href="tel:116117" class="text-base font-semibold text-[#1D1D1F] hover:text-[#922c37]">116 117</a>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
+
+  <script>
+  (function(){
+    const now = new Date();
+    const day = now.getDay(); // 0=So, 1=Mo, ..., 5=Fr, 6=Sa
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const isWeekday = day >= 1 && day <= 5;
+    const isMoDiDo = [1, 2, 4].includes(day);
+    const status = {
+      termin: isWeekday && (mins >= 510 && mins < 600 || isMoDiDo && mins >= 960 && mins < 1020),
+      offen:  isWeekday && (mins >= 600 && mins < 660 || isMoDiDo && mins >= 1020 && mins < 1080),
+      infekt: day >= 1 && day <= 4 && mins >= 660 && mins < 720,
+    };
+    document.querySelectorAll('.hours-card').forEach((card, i) => {
+      const key = ['termin','offen','infekt'][i];
+      const dot = card.querySelector('.live-dot');
+      const label = card.querySelector('.live-label');
+      if (!dot || !label) return;
+      if (status[key]) {
+        dot.style.background = '#22C55E';
+        label.textContent = 'Jetzt geöffnet';
+        label.style.color = '#16a34a';
+      } else {
+        dot.style.background = '#ccc';
+        label.textContent = 'Aktuell geschlossen';
+        label.style.color = '#999';
+      }
+    });
+  })();
+  </script>
 
   <!-- ═══════════════════════════════════════════
        LEISTUNGEN
