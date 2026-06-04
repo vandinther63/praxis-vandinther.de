@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "geist/dist/font.css";
+@import "@fontsource-variable/inter";
 
 :root {
   --color-surface: #F5F5F7;
@@ -12,7 +12,7 @@
 }
 
 html {
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-family: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   color: var(--color-text-primary);
   background: #fff;
   -webkit-font-smoothing: antialiased;
