@@ -316,8 +316,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <span class="live-label text-xs font-medium" style="color:#999;">Aktuell geschlossen</span>
           </div>
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Termin-Sprechstunde</p>
-          <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 08:30–10:00 Uhr</p>
-          <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 16:00–17:00 Uhr</p>
+          <div class="space-y-1">
+            <div class="flex justify-between gap-4 text-base text-[#1D1D1F]"><span>Mo–Fr</span><span class="tabular-nums">08:30–10:00 Uhr</span></div>
+            <div class="flex justify-between gap-4 text-base text-[#1D1D1F]"><span>Mo, Di, Do</span><span class="tabular-nums">16:00–17:00 Uhr</span></div>
+          </div>
           <a
             href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
             target="_blank"
@@ -335,8 +337,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <span class="live-label text-xs font-medium" style="color:#999;">Aktuell geschlossen</span>
           </div>
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Freie Sprechstunde</p>
-          <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 10:00–11:00 Uhr</p>
-          <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 17:00–18:00 Uhr</p>
+          <div class="space-y-1">
+            <div class="flex justify-between gap-4 text-base text-[#1D1D1F]"><span>Mo–Fr</span><span class="tabular-nums">10:00–11:00 Uhr</span></div>
+            <div class="flex justify-between gap-4 text-base text-[#1D1D1F]"><span>Mo, Di, Do</span><span class="tabular-nums">17:00–18:00 Uhr</span></div>
+          </div>
         </div>
 
         <!-- Infekt-Sprechstunde -->
@@ -346,7 +350,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <span class="live-label text-xs font-medium" style="color:#999;">Aktuell geschlossen</span>
           </div>
           <p class="text-xs font-semibold tracking-widest uppercase text-[#92400E] mb-4">Infekt-Sprechstunde</p>
-          <p class="text-base text-[#92400E]">Mo–Do &nbsp; 11:00–12:00 Uhr</p>
+          <div class="space-y-1">
+            <div class="flex justify-between gap-4 text-base text-[#92400E]"><span>Mo–Do</span><span class="tabular-nums">11:00–12:00 Uhr</span></div>
+          </div>
           <p class="text-sm text-[#92400E] mt-3">Nur mit FFP2-Maske.<br/>Kein Termin buchbar.</p>
         </div>
       </div>
