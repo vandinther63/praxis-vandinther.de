@@ -353,43 +353,209 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section id="formular" class="max-w-6xl mx-auto px-6 py-24">
     <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Kontaktformular</p>
     <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-4">Schreiben Sie uns.</h2>
-    <p class="text-base text-[#6E6E73] max-w-lg leading-relaxed mb-10">
+    <p class="text-base text-[#6E6E73] max-w-lg leading-relaxed mb-12">
       Für Rezepte, Überweisungen, Fragen als Neupatient:in und alle weiteren Anliegen.
       Wir melden uns schnellstmöglich bei Ihnen.
     </p>
-    <div class="rounded-3xl overflow-hidden bg-[#F5F5F7] p-2">
-      <iframe
-        src="https://form.jotform.com/261292702996062"
-        title="Kontaktformular Praxis van Dinther"
-        width="100%"
-        height="650"
-        frameborder="0"
-        class="rounded-2xl bg-white block"
-        loading="lazy"
-      ></iframe>
-    </div>
 
-    <!-- Adresse & Anfahrt -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-      <div class="bg-[#F5F5F7] rounded-2xl p-8">
-        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Adresse</p>
-        <p class="text-base text-[#1D1D1F] font-medium">Praxis van Dinther</p>
-        <p class="text-base text-[#6E6E73]">Neukirchener Straße 5<br/>47829 Krefeld</p>
-        <p class="text-sm text-[#86868B] mt-4">
-          Straßenbahn 042 / Bus 058<br/>
-          Haltestelle: Neukirchener Straße
-        </p>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+
+      <!-- Form -->
+      <div class="lg:col-span-3">
+        <form id="contact-form" class="space-y-5" novalidate>
+
+          <!-- Betreff -->
+          <div>
+            <label for="betreff" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+              Ihr Anliegen <span class="text-[#922c37]">*</span>
+            </label>
+            <div class="relative">
+              <select
+                id="betreff"
+                name="betreff"
+                required
+                class="w-full appearance-none bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors cursor-pointer"
+              >
+                <option value="" disabled selected>Bitte wählen …</option>
+                <option value="rezept">Rezept-Anfrage</option>
+                <option value="ueberweisung">Überweisung</option>
+                <option value="neupatient">Anfrage als Neupatient:in</option>
+                <option value="befund">Befund-Rückfrage</option>
+                <option value="sonstiges">Sonstiges</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m6 9 6 6 6-6"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name + Geburtsdatum -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="name" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+                Name <span class="text-[#922c37]">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Vor- und Nachname"
+                class="w-full bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
+              />
+            </div>
+            <div>
+              <label for="geburtsdatum" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+                Geburtsdatum
+              </label>
+              <input
+                type="date"
+                id="geburtsdatum"
+                name="geburtsdatum"
+                autocomplete="bday"
+                class="w-full bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Telefon + E-Mail -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="telefon" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+                Telefon <span class="text-[#922c37]">*</span>
+              </label>
+              <input
+                type="tel"
+                id="telefon"
+                name="telefon"
+                required
+                autocomplete="tel"
+                placeholder="02151 …"
+                class="w-full bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+                E-Mail
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                placeholder="ihre@email.de"
+                class="w-full bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
+              />
+            </div>
+          </div>
+
+          <!-- Nachricht -->
+          <div>
+            <label for="nachricht" class="block text-sm font-medium text-[#1D1D1F] mb-2">
+              Nachricht <span class="text-[#922c37]">*</span>
+            </label>
+            <textarea
+              id="nachricht"
+              name="nachricht"
+              required
+              rows="5"
+              placeholder="Ihr Anliegen …"
+              class="w-full bg-[#F5F5F7] border border-transparent rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Datenschutz -->
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="datenschutz"
+              name="datenschutz"
+              required
+              class="mt-1 w-4 h-4 rounded accent-[#922c37] shrink-0 cursor-pointer"
+            />
+            <label for="datenschutz" class="text-sm text-[#6E6E73] leading-relaxed cursor-pointer">
+              Ich habe die <a href="/datenschutz" class="text-[#922c37] hover:underline">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu.
+            </label>
+          </div>
+
+          <!-- Submit -->
+          <div>
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full sm:w-auto bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Nachricht senden
+            </button>
+          </div>
+
+          <!-- Feedback -->
+          <div id="form-success" class="hidden bg-[#F0FAF4] border border-[#4ADE80] rounded-xl p-5">
+            <p class="text-sm font-medium text-[#166534]">Vielen Dank — Ihre Nachricht ist bei uns eingegangen. Wir melden uns so bald wie möglich.</p>
+          </div>
+          <div id="form-error" class="hidden bg-[#FEF2F2] border border-[#EF4444] rounded-xl p-5">
+            <p class="text-sm font-medium text-[#991B1B]">Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder rufen Sie uns an: <a href="tel:021514789890" class="underline">02151 478989</a></p>
+          </div>
+
+        </form>
       </div>
-      <div class="bg-[#F5F5F7] rounded-2xl p-8">
-        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Kontaktdaten</p>
-        <div class="space-y-2">
-          <p class="text-sm text-[#6E6E73]">Tel: <a href="tel:021514789890" class="text-[#1D1D1F] hover:text-[#922c37]">02151 478989</a></p>
-          <p class="text-sm text-[#6E6E73]">Rezept-Hotline: <a href="tel:021515350714" class="text-[#1D1D1F] hover:text-[#922c37]">02151 5350714</a></p>
-          <p class="text-sm text-[#6E6E73]">Fax: 02151 475594</p>
+
+      <!-- Kontaktdaten -->
+      <div class="lg:col-span-2 space-y-4">
+        <div class="bg-[#F5F5F7] rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Adresse</p>
+          <p class="text-base font-medium text-[#1D1D1F]">Praxis van Dinther</p>
+          <p class="text-base text-[#6E6E73]">Neukirchener Straße 5<br/>47829 Krefeld</p>
+          <p class="text-sm text-[#86868B] mt-4">Straßenbahn 042 / Bus 058<br/>Haltestelle: Neukirchener Straße</p>
+        </div>
+        <div class="bg-[#F5F5F7] rounded-2xl p-8 space-y-2">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Kontakt</p>
+          <p class="text-sm text-[#6E6E73]">Tel: <a href="tel:021514789890" class="text-[#1D1D1F] hover:text-[#922c37] transition-colors">02151 478989</a></p>
+          <p class="text-sm text-[#6E6E73]">Rezept-Hotline: <a href="tel:021515350714" class="text-[#1D1D1F] hover:text-[#922c37] transition-colors">02151 5350714</a></p>
           <p class="text-sm text-[#6E6E73]">E-Mail: <a href="mailto:info@praxis-vandinther.de" class="text-[#922c37] hover:underline">info@praxis-vandinther.de</a></p>
         </div>
       </div>
+
     </div>
   </section>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    const successEl = document.getElementById('form-success')!;
+    const errorEl = document.getElementById('form-error')!;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wird gesendet …';
+      successEl.classList.add('hidden');
+      errorEl.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        if (res.ok) {
+          successEl.classList.remove('hidden');
+          form.reset();
+        } else {
+          errorEl.classList.remove('hidden');
+        }
+      } catch {
+        errorEl.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nachricht senden';
+      }
+    });
+  </script>
 
 </BaseLayout>
