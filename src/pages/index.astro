@@ -551,7 +551,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </p>
 
     <!-- Zwei-Spalten: Akkordeons links, Links-Card rechts -->
-    <div class="flex flex-col lg:flex-row gap-6 items-start">
+    <div class="flex flex-col lg:flex-row gap-6 items-stretch">
 
     <!-- Akkordeon-Cluster -->
     <div class="space-y-3 flex-1">
@@ -682,7 +682,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <!-- Weiterführende Links — eigene Card rechts -->
-    <div class="lg:w-72 shrink-0 bg-[#F5F5F7] rounded-2xl p-8">
+    <div class="lg:w-72 shrink-0 bg-[#F5F5F7] rounded-2xl p-8 flex flex-col">
       <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-6">Weiterführende Links</p>
       <div class="space-y-3">
         {[
