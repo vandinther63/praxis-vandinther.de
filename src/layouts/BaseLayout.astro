@@ -35,23 +35,23 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
 
     <header id="site-nav" class="sticky top-0 z-50 transition-all duration-300 nav-hero">
       <div class="max-w-6xl mx-auto px-6">
-        <div class="h-16 flex items-end justify-between pb-2">
-          <a href="/" class="flex items-end gap-3">
-            <img src="/windmill.svg" alt="" class="h-12 w-auto nav-logo shrink-0" />
-            <div class="pb-1 hidden sm:block">
+        <div class="h-16 flex items-center justify-between">
+          <a href="/" class="flex items-center gap-3">
+            <img src="/windmill.svg" alt="" class="h-10 w-auto nav-logo shrink-0" />
+            <div class="hidden sm:block">
               <p class="text-sm font-semibold leading-tight nav-brand-name">Frank van Dinther</p>
               <p class="text-xs leading-tight nav-brand-sub">Facharzt für Allgemeinmedizin</p>
             </div>
           </a>
           <!-- Desktop nav -->
-          <div class="hidden md:flex items-center gap-8 pb-1">
+          <div class="hidden md:flex items-center gap-8">
             <a href="#zeiten" class="text-sm nav-link transition-colors">Öffnungszeiten</a>
             <a href="#leistungen" class="text-sm nav-link transition-colors">Leistungen</a>
             <a href="#team" class="text-sm nav-link transition-colors">Team</a>
             <a href="#wissen" class="text-sm nav-link transition-colors">Wissen</a>
             <a href="#kontakt" class="text-sm nav-link transition-colors">Kontakt</a>
           </div>
-          <div class="flex items-center gap-3 pb-1">
+          <div class="flex items-center gap-3">
             <a
               href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
               target="_blank"
@@ -178,11 +178,12 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <style>
       /* Nav over hero: frosted glass, white text */
       .nav-hero {
-        background: rgba(255, 255, 255, 0.22);
+        background: rgba(255, 255, 255, 0.08);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       }
+      .nav-hero .nav-logo { filter: brightness(0) invert(1); }
       .nav-hero .nav-link { color: rgba(255,255,255,0.85); }
       .nav-hero .nav-link:hover { color: #fff; }
       .nav-hero .nav-brand-name { color: #fff; }
