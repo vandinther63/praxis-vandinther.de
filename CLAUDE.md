@@ -96,12 +96,25 @@ Claude Code kennt durch diese Datei den vollen Kontext — einfach `claude` im P
 
 ## Offene Punkte
 
+### Vor Go-Live (Pflicht)
 - [ ] Impressum-Seite erstellen (Inhalt von alter Seite übernehmen)
 - [ ] Datenschutzerklärung erstellen (DSGVO-konform, anwaltlich prüfen lassen)
 - [ ] Verfahrensanweisung-Seite erstellen
-- [ ] Favicon erstellen (SVG, Initialen "vD")
-- [ ] OG-Image erstellen (für Social Sharing)
 - [ ] Mobile Navigation (Hamburger-Menü) implementieren
 - [ ] GitHub-Repo anlegen und pushen
 - [ ] Vercel verbinden (Region: fra1)
 - [ ] Domain `praxis-vandinther.de` umstellen
+
+### Bei Übergabe an Herrn van Dinther
+- [ ] **Kontaktformular: JotForm ersetzen durch eigenes Form**
+  - Stack: Resend (Account bereits angelegt) + Astro Hybrid Mode + @astrojs/vercel Adapter
+  - Resend API Key von Herrn van Dinther einfordern → als Vercel Environment Variable `RESEND_API_KEY` eintragen
+  - Astro auf `output: 'hybrid'` umstellen
+  - `/src/pages/api/contact.ts` API Route bauen
+  - Form in `index.astro` (#formular) auf natives HTML-Form umbauen
+  - JotForm iframe entfernen
+  - Ziel-E-Mail: `info@praxis-vandinther.de`
+
+### Nice to have
+- [ ] Favicon erstellen (SVG, Initialen "vD")
+- [ ] OG-Image erstellen (für Social Sharing)
