@@ -2,35 +2,43 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Praxis van Dinther" description="Facharzt für Allgemeinmedizin in Krefeld. Terminbuchung online über Doctolib.">
+<BaseLayout
+  title="Praxis van Dinther"
+  description="Facharzt für Allgemeinmedizin in Krefeld. Termin online buchen über Doctolib."
+>
 
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-white">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_60%,_#EBF2FF_0%,_transparent_60%)] pointer-events-none"></div>
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section id="start" class="relative overflow-hidden bg-white">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_60%,_#EBF2FF_0%,_transparent_55%)] pointer-events-none"></div>
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-      <span class="text-[200px] lg:text-[320px] font-black text-[#F5F5F7] leading-none tracking-tighter whitespace-nowrap">
+      <span class="text-[180px] lg:text-[300px] font-black text-[#F5F5F7] leading-none tracking-tighter whitespace-nowrap">
         van Dinther
       </span>
     </div>
     <div class="relative max-w-6xl mx-auto px-6 py-32 lg:py-48">
-      <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-6">Krefeld · Allgemeinmedizin</p>
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-6">
+        Krefeld · Allgemeinmedizin
+      </p>
       <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-[#1D1D1F] max-w-2xl leading-tight mb-6">
         Ihre Hausarzt&shy;praxis in Krefeld.
       </h1>
       <p class="text-lg lg:text-xl text-[#6E6E73] max-w-xl leading-relaxed mb-10">
-        Frank van Dinther, Facharzt für Allgemeinmedizin. Termine online buchbar — auch als Videosprechstunde.
+        Frank van Dinther, Facharzt für Allgemeinmedizin.
+        Am schnellsten erreichen Sie uns über Doctolib.
       </p>
       <div class="flex flex-col sm:flex-row gap-4">
         <a
           href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
           target="_blank"
           rel="noopener"
-          class="inline-flex items-center justify-center bg-[#0071E3] text-white rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#0058B0] transition-colors"
+          class="inline-flex items-center justify-center gap-2 bg-[#0071E3] text-white rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#0058B0] transition-colors"
         >
-          Termin online vereinbaren
+          Termin buchen
         </a>
         <a
-          href="/kontakt"
+          href="#kontakt"
           class="inline-flex items-center justify-center bg-[#F5F5F7] text-[#1D1D1F] rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#E8E8ED] transition-colors"
         >
           Kontakt aufnehmen
@@ -40,7 +48,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- Trust bar -->
-  <section class="border-y border-[#E8E8ED]">
+  <div class="border-y border-[#E8E8ED]">
     <div class="max-w-6xl mx-auto px-6 py-8">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:divide-x divide-[#E8E8ED]">
         <div class="md:pr-6">
@@ -57,75 +65,329 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Quick access bento -->
-  <section class="max-w-6xl mx-auto px-6 py-24">
-    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Schnellzugriff</p>
-    <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Was möchten Sie tun?</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+  <!-- ═══════════════════════════════════════════
+       KONTAKT-HIERARCHIE (Herzstück der Seite)
+  ═══════════════════════════════════════════ -->
+  <section id="kontakt" class="max-w-6xl mx-auto px-6 py-24">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Kontakt</p>
+    <h2 class="text-4xl lg:text-5xl font-semibold tracking-tight text-[#1D1D1F] mb-4">So erreichen Sie uns.</h2>
+    <p class="text-lg text-[#6E6E73] max-w-xl leading-relaxed mb-12">
+      Wir haben die häufigsten Anliegen digital gelöst — das spart Ihnen Wartezeit am Telefon.
+    </p>
+
+    <!-- Hierarchie-Karten -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+
+      <!-- 1. Termin buchen — Primär -->
       <a
         href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
         target="_blank"
         rel="noopener"
-        class="col-span-2 bg-[#0071E3] rounded-3xl p-10 hover:bg-[#0058B0] transition-colors"
+        class="col-span-1 md:col-span-2 bg-[#0071E3] rounded-3xl p-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 hover:bg-[#0058B0] transition-colors group"
       >
-        <p class="text-sm font-semibold text-white/70 tracking-widest uppercase mb-3">Online</p>
-        <p class="text-2xl font-semibold text-white tracking-tight">Termin buchen →</p>
-        <p class="text-sm text-white/70 mt-2">Auch als Videosprechstunde verfügbar</p>
+        <div>
+          <div class="inline-flex items-center gap-2 bg-white/20 rounded-full px-3 py-1 mb-4">
+            <span class="w-2 h-2 rounded-full bg-white"></span>
+            <span class="text-xs font-semibold text-white tracking-widest uppercase">Empfohlen</span>
+          </div>
+          <p class="text-2xl lg:text-3xl font-semibold text-white tracking-tight mb-2">
+            Termin online buchen
+          </p>
+          <p class="text-base text-white/70 max-w-md">
+            Der schnellste Weg. Wählen Sie Datum, Uhrzeit und Art des Termins — direkt über Doctolib, 24/7.
+          </p>
+        </div>
+        <div class="shrink-0">
+          <span class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/20 text-white text-2xl group-hover:bg-white/30 transition-colors">→</span>
+        </div>
       </a>
-      <a href="/aktuelles" class="bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors">
-        <p class="text-xs font-semibold text-[#86868B] tracking-widest uppercase mb-3">Zeiten</p>
-        <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight">Öffnungszeiten</p>
-        <p class="text-sm text-[#6E6E73] mt-2">Mo–Fr ab 8:30 Uhr</p>
+
+      <!-- 2. Videosprechstunde -->
+      <a
+        href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
+        target="_blank"
+        rel="noopener"
+        class="bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors group"
+      >
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 8-6 4 6 4V8z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-[#86868B] bg-white rounded-full px-3 py-1">Option 2</span>
+        </div>
+        <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight mb-2">Videosprechstunde</p>
+        <p class="text-sm text-[#6E6E73] leading-relaxed">
+          Befundbesprechung oder kurze Rückfragen bequem von zuhause — ebenfalls über Doctolib buchbar.
+        </p>
+        <p class="text-sm font-medium text-[#0071E3] mt-4 group-hover:underline">Termin buchen →</p>
       </a>
-      <a href="/kontakt" class="bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors">
-        <p class="text-xs font-semibold text-[#86868B] tracking-widest uppercase mb-3">Anfragen</p>
-        <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight">Kontaktformular</p>
-        <p class="text-sm text-[#6E6E73] mt-2">Rezepte, Überweisungen & mehr</p>
+
+      <!-- 3. Kontaktformular -->
+      <a
+        href="#formular"
+        class="bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors group"
+      >
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0071E3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <span class="text-xs font-medium text-[#86868B] bg-white rounded-full px-3 py-1">Option 3</span>
+        </div>
+        <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight mb-2">Kontaktformular</p>
+        <p class="text-sm text-[#6E6E73] leading-relaxed">
+          Für Rezepte, Überweisungen, Neupatientenanfragen und alle weiteren Anliegen. Wir melden uns bei Ihnen.
+        </p>
+        <p class="text-sm font-medium text-[#0071E3] mt-4 group-hover:underline">Zum Formular ↓</p>
       </a>
     </div>
-    <div class="mt-4 bg-[#FFF9EB] border border-[#F59E0B] rounded-2xl p-6 flex gap-4">
-      <div class="text-[#F59E0B] mt-0.5 shrink-0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+
+    <!-- Telefon — letzte Option, bewusst kleiner -->
+    <div class="bg-white border border-[#E8E8ED] rounded-2xl px-8 py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 rounded-xl bg-[#F5F5F7] flex items-center justify-center shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-sm font-medium text-[#1D1D1F]">Telefonisch erreichbar</p>
+          <p class="text-sm text-[#86868B]">Bitte nutzen Sie wenn möglich eine der obigen Optionen</p>
+        </div>
       </div>
-      <div>
-        <p class="text-sm font-semibold text-[#92400E]">Atemwegsinfekt-Sprechstunde</p>
-        <p class="text-sm text-[#92400E] mt-1">Bei Erkältungssymptomen bitte ausschließlich Mo–Do von 11–12 Uhr mit FFP2-Maske kommen. Kein Termin erforderlich.</p>
+      <div class="flex flex-col sm:items-end gap-1">
+        <a href="tel:+4921514789890" class="text-base font-medium text-[#1D1D1F] hover:text-[#0071E3] transition-colors">
+          02151 478989
+        </a>
+        <p class="text-xs text-[#86868B]">Rezept-Hotline: 02151 5350714</p>
+      </div>
+    </div>
+
+    <!-- Notfall -->
+    <div class="mt-4 bg-[#FEF2F2] border border-[#EF4444] rounded-2xl px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <p class="text-sm font-semibold text-[#991B1B]">Notfall</p>
+      <div class="flex gap-6">
+        <div>
+          <p class="text-xs text-[#991B1B]/70 mb-0.5">Bereitschaftsdienst</p>
+          <a href="tel:116117" class="text-base font-semibold text-[#991B1B]">116 117</a>
+        </div>
+        <div>
+          <p class="text-xs text-[#991B1B]/70 mb-0.5">Notarzt</p>
+          <a href="tel:112" class="text-base font-semibold text-[#991B1B]">112</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Services preview -->
-  <section class="bg-[#F5F5F7] py-24">
+  <!-- ═══════════════════════════════════════════
+       ÖFFNUNGSZEITEN
+  ═══════════════════════════════════════════ -->
+  <section id="zeiten" class="bg-[#F5F5F7] py-24">
     <div class="max-w-6xl mx-auto px-6">
-      <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Leistungen</p>
-      <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Was wir für Sie tun.</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <a href="/leistung#diagnostik" class="bg-white rounded-2xl p-8 hover:shadow-sm transition-shadow group">
-          <div class="w-10 h-10 text-[#0071E3] mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Öffnungszeiten</p>
+      <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Wann wir für Sie da sind.</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Termin-Sprechstunde</p>
+          <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 08:30–10:00 Uhr</p>
+          <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 16:00–17:00 Uhr</p>
+        </div>
+        <div class="bg-white rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Ohne Termin</p>
+          <p class="text-base text-[#1D1D1F]">Mo–Fr &nbsp; 10:00–11:00 Uhr</p>
+          <p class="text-base text-[#1D1D1F]">Mo, Di, Do &nbsp; 17:00–18:00 Uhr</p>
+        </div>
+        <div class="bg-[#FFF9EB] border border-[#F59E0B] rounded-2xl p-8">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#92400E] mb-4">Infekt-Sprechstunde</p>
+          <p class="text-base text-[#92400E]">Mo–Do &nbsp; 11:00–12:00 Uhr</p>
+          <p class="text-sm text-[#92400E] mt-3">Nur mit FFP2-Maske.<br/>Kein Termin buchbar.</p>
+        </div>
+      </div>
+
+      <!-- Betriebsferien -->
+      <div class="bg-white rounded-2xl p-8 max-w-lg">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien 2026</p>
+        <div class="space-y-3">
+          <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
+            <span class="text-[#1D1D1F]">Brückentag</span>
+            <span class="text-[#6E6E73]">05. Juni 2026</span>
           </div>
-          <h3 class="text-xl font-medium tracking-tight text-[#1D1D1F] mb-2">Diagnostik</h3>
-          <p class="text-base text-[#6E6E73] leading-relaxed">Labor, EKG, Langzeitblutdruck, Lungenfunktion und Ultraschall.</p>
-          <p class="text-sm font-medium text-[#0071E3] mt-4 group-hover:underline">Mehr erfahren →</p>
-        </a>
-        <a href="/leistung#vorsorge" class="bg-white rounded-2xl p-8 hover:shadow-sm transition-shadow group">
-          <div class="w-10 h-10 text-[#0071E3] mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.51 0 2.93.37 4.18 1.03"/><path d="M21 3l-4 4"/><path d="M17 3h4v4"/></svg>
+          <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
+            <span class="text-[#1D1D1F]">Sommerurlaub</span>
+            <span class="text-[#6E6E73]">03.–18. August 2026</span>
           </div>
-          <h3 class="text-xl font-medium tracking-tight text-[#1D1D1F] mb-2">Vorsorge</h3>
-          <p class="text-base text-[#6E6E73] leading-relaxed">Krebsvorsorge, Gesundheitschecks, Hautkrebs-Screening und mehr.</p>
-          <p class="text-sm font-medium text-[#0071E3] mt-4 group-hover:underline">Mehr erfahren →</p>
-        </a>
-        <a href="/leistung#igel" class="bg-white rounded-2xl p-8 hover:shadow-sm transition-shadow group">
-          <div class="w-10 h-10 text-[#0071E3] mb-6">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div class="flex justify-between text-sm">
+            <span class="text-[#1D1D1F]">Jahreswechsel</span>
+            <span class="text-[#6E6E73]">18.–31. Dezember 2026</span>
           </div>
-          <h3 class="text-xl font-medium tracking-tight text-[#1D1D1F] mb-2">IGeL-Leistungen</h3>
-          <p class="text-base text-[#6E6E73] leading-relaxed">Reisemedizin, Sporttauglichkeit, erweiterte Untersuchungen nach GOÄ.</p>
-          <p class="text-sm font-medium text-[#0071E3] mt-4 group-hover:underline">Mehr erfahren →</p>
-        </a>
+        </div>
+        <div class="mt-6 pt-5 border-t border-[#E8E8ED]">
+          <p class="text-xs text-[#86868B]">Notfallvertretung: Dr. Elvi Tudor · Tel. <a href="tel:02151481148" class="text-[#1D1D1F]">02151 481148</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       LEISTUNGEN
+  ═══════════════════════════════════════════ -->
+  <section id="leistungen" class="max-w-6xl mx-auto px-6 py-24">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Leistungen</p>
+    <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Was wir für Sie tun.</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Diagnostik -->
+      <div class="bg-[#F5F5F7] rounded-2xl p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Diagnostik</p>
+        <ul class="space-y-2">
+          {['Blutuntersuchungen (Labor)', 'EKG & Belastungs-EKG', 'Langzeitblutdruckmessung', 'Lungenfunktionstest', 'Ultraschall (Schilddrüse, Abdomen, Thorax)'].map(item => (
+            <li class="flex items-start gap-2 text-sm text-[#6E6E73]">
+              <span class="text-[#0071E3] shrink-0 mt-0.5">–</span>{item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Vorsorge -->
+      <div class="bg-[#F5F5F7] rounded-2xl p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Vorsorge</p>
+        <ul class="space-y-2">
+          {['Krebsvorsorge (Prostata, Darm, Haut)', 'Gesundheitscheck (Check-up 35)', 'Hautkrebsscreening ab 18', 'Geriatrisches Basisassessment', 'Demenz-Früherkennungstests'].map(item => (
+            <li class="flex items-start gap-2 text-sm text-[#6E6E73]">
+              <span class="text-[#0071E3] shrink-0 mt-0.5">–</span>{item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Behandlungen -->
+      <div class="bg-[#F5F5F7] rounded-2xl p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Behandlungen</p>
+        <ul class="space-y-2">
+          {['Impfungen (STIKO)', 'Chirotherapie / Manuelle Medizin', 'Psychosomatische Grundversorgung', 'Kleine Chirurgie', 'Reisemedizin & Reiseimpfung'].map(item => (
+            <li class="flex items-start gap-2 text-sm text-[#6E6E73]">
+              <span class="text-[#0071E3] shrink-0 mt-0.5">–</span>{item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- DMP -->
+    <div class="border-t border-[#E8E8ED] pt-10">
+      <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Disease-Management-Programme</p>
+      <div class="flex flex-wrap gap-3">
+        {['Diabetes mellitus Typ 2', 'Koronare Herzerkrankung (KHK)', 'Asthma bronchiale', 'COPD'].map(item => (
+          <span class="bg-[#F5F5F7] rounded-full px-5 py-2 text-sm text-[#1D1D1F]">{item}</span>
+        ))}
+      </div>
+    </div>
+
+    <!-- IGeL -->
+    <div class="border-t border-[#E8E8ED] pt-10 mt-8">
+      <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Individuelle Gesundheitsleistungen (IGeL) · Selbstzahler nach GOÄ</p>
+      <div class="flex flex-wrap gap-3">
+        {['Sporttauglichkeit', 'Tauchuntersuchung', 'Reisemedizin', 'Erweiterter Blutcheck', 'PSA-Bestimmung', 'Kinesio Taping', 'Infusionen', 'Atteste'].map(item => (
+          <span class="bg-[#F5F5F7] rounded-full px-5 py-2 text-sm text-[#1D1D1F]">{item}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       TEAM
+  ═══════════════════════════════════════════ -->
+  <section id="team" class="bg-[#F5F5F7] py-24">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Das Team</p>
+      <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-10">Ihr Team in Krefeld.</h2>
+
+      <div class="flex flex-col md:flex-row gap-6">
+        <!-- Arzt -->
+        <div class="bg-white rounded-3xl p-10 flex items-start gap-8 md:flex-1">
+          <div class="w-20 h-20 rounded-2xl bg-[#0071E3] flex items-center justify-center shrink-0">
+            <span class="text-xl font-semibold text-white">FvD</span>
+          </div>
+          <div>
+            <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight">Frank van Dinther</p>
+            <p class="text-base text-[#6E6E73] mt-1">Facharzt für Allgemeinmedizin</p>
+            <div class="mt-4 space-y-1.5">
+              {['Manuelle Medizin (Chirotherapie)', 'Lehrbeauftragter IFAM · HHU Düsseldorf', 'Weiterbildungsermächtigung · ÄK Nordrhein'].map(q => (
+                <p class="text-sm text-[#86868B] flex items-center gap-2">
+                  <span class="w-1 h-1 rounded-full bg-[#0071E3] shrink-0"></span>{q}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- MFA -->
+        <div class="bg-white rounded-3xl p-10 flex flex-col gap-5 md:w-72">
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B]">Med. Fachangestellte</p>
+          {[
+            { name: 'Astrid Vermeulen', initials: 'AV' },
+            { name: 'Bianka Gröters', initials: 'BG' },
+            { name: 'Denise Gerhards-Hamm', initials: 'DGH' },
+          ].map(p => (
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-[#F5F5F7] flex items-center justify-center shrink-0">
+                <span class="text-xs font-semibold text-[#6E6E73]">{p.initials}</span>
+              </div>
+              <p class="text-sm font-medium text-[#1D1D1F]">{p.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       KONTAKTFORMULAR
+  ═══════════════════════════════════════════ -->
+  <section id="formular" class="max-w-6xl mx-auto px-6 py-24">
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#0071E3] mb-4">Kontaktformular</p>
+    <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-4">Schreiben Sie uns.</h2>
+    <p class="text-base text-[#6E6E73] max-w-lg leading-relaxed mb-10">
+      Für Rezepte, Überweisungen, Fragen als Neupatient:in und alle weiteren Anliegen.
+      Wir melden uns schnellstmöglich bei Ihnen.
+    </p>
+    <div class="rounded-3xl overflow-hidden bg-[#F5F5F7] p-2">
+      <iframe
+        src="https://form.jotform.com/261292702996062"
+        title="Kontaktformular Praxis van Dinther"
+        width="100%"
+        height="650"
+        frameborder="0"
+        class="rounded-2xl bg-white block"
+        loading="lazy"
+      ></iframe>
+    </div>
+
+    <!-- Adresse & Anfahrt -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+      <div class="bg-[#F5F5F7] rounded-2xl p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Adresse</p>
+        <p class="text-base text-[#1D1D1F] font-medium">Praxis van Dinther</p>
+        <p class="text-base text-[#6E6E73]">Neukirchener Straße 5<br/>47829 Krefeld</p>
+        <p class="text-sm text-[#86868B] mt-4">
+          Straßenbahn 042 / Bus 058<br/>
+          Haltestelle: Neukirchener Straße
+        </p>
+      </div>
+      <div class="bg-[#F5F5F7] rounded-2xl p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Kontaktdaten</p>
+        <div class="space-y-2">
+          <p class="text-sm text-[#6E6E73]">Tel: <a href="tel:021514789890" class="text-[#1D1D1F] hover:text-[#0071E3]">02151 478989</a></p>
+          <p class="text-sm text-[#6E6E73]">Rezept-Hotline: <a href="tel:021515350714" class="text-[#1D1D1F] hover:text-[#0071E3]">02151 5350714</a></p>
+          <p class="text-sm text-[#6E6E73]">Fax: 02151 475594</p>
+          <p class="text-sm text-[#6E6E73]">E-Mail: <a href="mailto:info@praxis-vandinther.de" class="text-[#0071E3] hover:underline">info@praxis-vandinther.de</a></p>
+        </div>
       </div>
     </div>
   </section>
