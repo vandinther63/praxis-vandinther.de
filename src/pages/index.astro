@@ -10,21 +10,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ═══════════════════════════════════════════
        HERO
   ═══════════════════════════════════════════ -->
-  <section id="start" class="hero-section relative overflow-hidden">
-    <!-- Animated gradient mesh background -->
-    <div class="hero-bg" aria-hidden="true"></div>
+  <section id="start" class="hero" style="background:#1a0608;position:relative;overflow:hidden;">
+    <canvas id="hero-canvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:block;"></canvas>
 
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-28 lg:py-44 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+    <div style="position:relative;z-index:1;" class="max-w-6xl mx-auto px-6 py-28 lg:py-44 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
       <div class="max-w-2xl">
-        <!-- Accent line -->
-        <div class="w-10 h-[3px] bg-white/60 mb-8 rounded-full"></div>
-        <p class="text-sm font-semibold tracking-widest uppercase text-white/60 mb-5">
+        <div class="w-10 h-[3px] mb-8 rounded-full" style="background:rgba(255,255,255,0.5);"></div>
+        <p class="text-sm font-semibold tracking-widest uppercase mb-5" style="color:rgba(255,255,255,0.6);">
           Krefeld · Allgemeinmedizin
         </p>
-        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-6">
+        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight leading-[1.05] mb-6" style="color:#fff;">
           Ihre Hausarzt&shy;praxis in Krefeld.
         </h1>
-        <p class="text-lg lg:text-xl text-white/70 leading-relaxed mb-10 max-w-lg">
+        <p class="text-lg lg:text-xl leading-relaxed mb-10 max-w-lg" style="color:rgba(255,255,255,0.7);">
           Frank van Dinther, Facharzt für Allgemeinmedizin.
           Am schnellsten erreichen Sie uns über Doctolib.
         </p>
@@ -33,82 +31,132 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center justify-center bg-white text-[#922c37] rounded-full px-8 py-3.5 text-base font-medium hover:bg-white/90 transition-colors"
+            class="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-base font-medium transition-colors"
+            style="background:#fff;color:#922c37;"
+            onmouseover="this.style.background='rgba(255,255,255,0.9)'"
+            onmouseout="this.style.background='#fff'"
           >
             Termin buchen
           </a>
           <a
             href="#kontakt"
-            class="inline-flex items-center justify-center bg-white/15 text-white border border-white/25 rounded-full px-8 py-3.5 text-base font-medium hover:bg-white/25 transition-colors backdrop-blur-sm"
+            class="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-base font-medium transition-colors backdrop-blur-sm"
+            style="background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25);"
+            onmouseover="this.style.background='rgba(255,255,255,0.22)'"
+            onmouseout="this.style.background='rgba(255,255,255,0.12)'"
           >
             Kontakt aufnehmen
           </a>
         </div>
       </div>
-      <!-- Typografisches Gegengewicht rechts -->
       <div class="hidden lg:block text-right shrink-0 pb-2">
-        <p class="text-[11rem] font-black leading-none tracking-tighter text-white/10 select-none" aria-hidden="true">vD</p>
-        <p class="text-sm text-white/20 tracking-widest uppercase select-none" aria-hidden="true">Praxis · Krefeld</p>
+        <p class="text-[11rem] font-black leading-none tracking-tighter select-none" style="color:rgba(255,255,255,0.08);" aria-hidden="true">vD</p>
+        <p class="text-sm tracking-widest uppercase select-none" style="color:rgba(255,255,255,0.15);" aria-hidden="true">Praxis · Krefeld</p>
       </div>
     </div>
   </section>
 
-  <style>
-    .hero-section {
-      background-color: #2a0a10;
+  <script>
+  (function(){
+    const canvas = document.getElementById("hero-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let t = 0, raf, W, H;
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.offsetWidth;
+      H = canvas.offsetHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.scale(dpr, dpr);
     }
 
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 15% 40%, rgba(146, 44, 55, 0.55) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 70% at 75% 15%, rgba(196, 90, 101, 0.30) 0%, transparent 60%),
-        radial-gradient(ellipse 65% 55% at 85% 75%, rgba(80, 18, 25, 0.70) 0%, transparent 60%),
-        radial-gradient(ellipse 45% 50% at 40% 85%, rgba(122, 36, 48, 0.40) 0%, transparent 55%),
-        radial-gradient(ellipse 35% 40% at 60% 30%, rgba(226, 155, 163, 0.15) 0%, transparent 50%);
-      animation: heroMesh 18s ease-in-out infinite alternate;
+    function blob(cx, cy, rx, ry, pts, phase, speed) {
+      const p = [];
+      for (let i = 0; i < pts; i++) {
+        const a = (i / pts) * Math.PI * 2;
+        const d =
+          Math.sin(a * 2 + t * speed + phase) * 0.31 +
+          Math.cos(a * 3 + t * speed * 0.65 + phase * 1.4) * 0.18 +
+          Math.sin(a * 7 + t * speed * 0.28) * 0.07;
+        p.push({ x: cx + Math.cos(a) * rx * (1 + d), y: cy + Math.sin(a) * ry * (1 + d) });
+      }
+      const n = p.length;
+      ctx.beginPath();
+      ctx.moveTo((p[n-1].x + p[0].x)/2, (p[n-1].y + p[0].y)/2);
+      for (let i = 0; i < n; i++) {
+        const c = p[i], nx = p[(i+1)%n];
+        ctx.quadraticCurveTo(c.x, c.y, (c.x+nx.x)/2, (c.y+nx.y)/2);
+      }
+      ctx.closePath();
     }
 
-    @keyframes heroMesh {
-      0% {
-        background:
-          radial-gradient(ellipse 80% 60% at 15% 40%, rgba(146, 44, 55, 0.55) 0%, transparent 65%),
-          radial-gradient(ellipse 55% 70% at 75% 15%, rgba(196, 90, 101, 0.30) 0%, transparent 60%),
-          radial-gradient(ellipse 65% 55% at 85% 75%, rgba(80, 18, 25, 0.70) 0%, transparent 60%),
-          radial-gradient(ellipse 45% 50% at 40% 85%, rgba(122, 36, 48, 0.40) 0%, transparent 55%),
-          radial-gradient(ellipse 35% 40% at 60% 30%, rgba(226, 155, 163, 0.15) 0%, transparent 50%);
-      }
-      33% {
-        background:
-          radial-gradient(ellipse 70% 75% at 25% 55%, rgba(146, 44, 55, 0.60) 0%, transparent 65%),
-          radial-gradient(ellipse 60% 55% at 65% 25%, rgba(196, 90, 101, 0.35) 0%, transparent 60%),
-          radial-gradient(ellipse 75% 45% at 80% 65%, rgba(80, 18, 25, 0.65) 0%, transparent 60%),
-          radial-gradient(ellipse 50% 60% at 30% 75%, rgba(122, 36, 48, 0.45) 0%, transparent 55%),
-          radial-gradient(ellipse 40% 35% at 70% 20%, rgba(226, 155, 163, 0.18) 0%, transparent 50%);
-      }
-      66% {
-        background:
-          radial-gradient(ellipse 85% 50% at 10% 30%, rgba(146, 44, 55, 0.50) 0%, transparent 65%),
-          radial-gradient(ellipse 50% 65% at 80% 30%, rgba(196, 90, 101, 0.28) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 65% at 90% 80%, rgba(80, 18, 25, 0.75) 0%, transparent 60%),
-          radial-gradient(ellipse 55% 45% at 45% 90%, rgba(122, 36, 48, 0.38) 0%, transparent 55%),
-          radial-gradient(ellipse 30% 45% at 55% 40%, rgba(226, 155, 163, 0.20) 0%, transparent 50%);
-      }
-      100% {
-        background:
-          radial-gradient(ellipse 75% 65% at 20% 45%, rgba(146, 44, 55, 0.58) 0%, transparent 65%),
-          radial-gradient(ellipse 58% 60% at 70% 20%, rgba(196, 90, 101, 0.32) 0%, transparent 60%),
-          radial-gradient(ellipse 70% 50% at 88% 70%, rgba(80, 18, 25, 0.68) 0%, transparent 60%),
-          radial-gradient(ellipse 48% 55% at 35% 80%, rgba(122, 36, 48, 0.42) 0%, transparent 55%),
-          radial-gradient(ellipse 38% 38% at 62% 25%, rgba(226, 155, 163, 0.16) 0%, transparent 50%);
-      }
+    function rgrad(cx, cy, r, inner, outer) {
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+      g.addColorStop(0, inner);
+      g.addColorStop(1, outer);
+      return g;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero-bg { animation: none; }
+    function draw() {
+      // Background — dark bordeaux (was #0d1a10 dark green)
+      ctx.fillStyle = "#1a0608";
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "screen";
+
+      // Orb 1 — main bordeaux (was #2e6842 mid-green)
+      ctx.globalAlpha = 0.65;
+      blob(W*.22, H*.52, W*.44, H*.52, 14, 0, .12);
+      ctx.fillStyle = rgrad(W*.22, H*.52, W*.44, "#922c37", "#1a0608");
+      ctx.fill();
+
+      // Orb 2 — dark bordeaux (was #245238 dark green)
+      ctx.globalAlpha = 0.55;
+      blob(W*.74, H*.42, W*.36, H*.44, 12, 2.1, .17);
+      ctx.fillStyle = rgrad(W*.74, H*.42, W*.36, "#7a2430", "#120407");
+      ctx.fill();
+
+      // Orb 3 — rose highlight (was #3a7a52 lighter green)
+      ctx.globalAlpha = 0.45;
+      blob(W*.5, H*.82, W*.3, H*.32, 10, 4.4, .22);
+      ctx.fillStyle = rgrad(W*.5, H*.82, W*.3, "#c45a65", "#1a0608");
+      ctx.fill();
+
+      // Orb 4 — warm pale rose (was #c8a050 golden)
+      ctx.globalAlpha = 0.35;
+      blob(W*.68, H*.2, W*.22, H*.26, 10, 1, .14);
+      ctx.fillStyle = rgrad(W*.68, H*.2, W*.22, "#e8a0a8", "#3a0810");
+      ctx.fill();
+
+      // Orb 5 — deep bordeaux shadow (was #1a4028 dark green)
+      ctx.globalAlpha = 0.4;
+      blob(W*.12, H*.18, W*.28, H*.3, 10, 3.2, .1);
+      ctx.fillStyle = rgrad(W*.12, H*.18, W*.28, "#5a1520", "#0a0305");
+      ctx.fill();
+
+      // Orb 6 — warm bordeaux tone (was hsl(35,60%,30%) warm amber)
+      ctx.globalAlpha = 0.28;
+      blob(W*.35, H*.65, W*.26, H*.3, 11, 5.5, .09);
+      ctx.fillStyle = rgrad(W*.35, H*.65, W*.26, "hsl(350,60%,30%)", "hsl(350,60%,8%)");
+      ctx.fill();
+
+      ctx.globalCompositeOperation = "source-over";
+      ctx.globalAlpha = 1;
+      t += 0.004;
+      raf = requestAnimationFrame(draw);
     }
-  </style>
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else draw();
+    });
+  })();
+  </script>
+
 
   <!-- Trust bar -->
   <div class="border-y border-[#E8E8ED]">
