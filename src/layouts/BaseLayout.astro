@@ -36,8 +36,12 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <header id="site-nav" class="sticky top-0 z-50 transition-all duration-300 nav-hero">
       <div class="max-w-6xl mx-auto px-6">
         <div class="h-16 flex items-end justify-between pb-2">
-          <a href="/" class="flex items-end">
-            <img src="/windmill.svg" alt="Praxis van Dinther" class="h-12 w-auto nav-logo" />
+          <a href="/" class="flex items-end gap-3">
+            <img src="/windmill.svg" alt="" class="h-12 w-auto nav-logo shrink-0" />
+            <div class="pb-1 hidden sm:block">
+              <p class="text-sm font-semibold leading-tight nav-brand-name">Frank van Dinther</p>
+              <p class="text-xs leading-tight nav-brand-sub">Facharzt für Allgemeinmedizin</p>
+            </div>
           </a>
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-8 pb-1">
@@ -174,19 +178,21 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <style>
       /* Nav over hero: frosted glass, white text */
       .nav-hero {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.22);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
       }
-      .nav-hero .nav-link { color: rgba(255,255,255,0.75); }
+      .nav-hero .nav-link { color: rgba(255,255,255,0.85); }
       .nav-hero .nav-link:hover { color: #fff; }
+      .nav-hero .nav-brand-name { color: #fff; }
+      .nav-hero .nav-brand-sub { color: rgba(255,255,255,0.6); }
       .nav-hero .nav-cta {
-        background: rgba(255,255,255,0.15);
+        background: rgba(255,255,255,0.2);
         color: #fff;
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid rgba(255,255,255,0.35);
       }
-      .nav-hero .nav-cta:hover { background: rgba(255,255,255,0.25); }
+      .nav-hero .nav-cta:hover { background: rgba(255,255,255,0.32); }
 
       /* Nav after hero: clean white */
       .nav-scrolled {
@@ -197,6 +203,8 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
       }
       .nav-scrolled .nav-link { color: #6E6E73; }
       .nav-scrolled .nav-link:hover { color: #1D1D1F; }
+      .nav-scrolled .nav-brand-name { color: #1D1D1F; }
+      .nav-scrolled .nav-brand-sub { color: #6E6E73; }
       .nav-scrolled .nav-cta { background: #922c37; color: #fff; border: none; }
       .nav-scrolled .nav-cta:hover { background: #7a2430; }
 
