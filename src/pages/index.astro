@@ -10,18 +10,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <!-- ═══════════════════════════════════════════
        HERO
   ═══════════════════════════════════════════ -->
-  <section id="start" class="relative bg-white">
-    <div class="max-w-6xl mx-auto px-6 py-28 lg:py-40 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+  <section id="start" class="hero-section relative overflow-hidden">
+    <!-- Animated gradient mesh background -->
+    <div class="hero-bg" aria-hidden="true"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 py-28 lg:py-44 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
       <div class="max-w-2xl">
-        <!-- Bordeaux accent line -->
-        <div class="w-10 h-[3px] bg-[#922c37] mb-8 rounded-full"></div>
-        <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-5">
+        <!-- Accent line -->
+        <div class="w-10 h-[3px] bg-white/60 mb-8 rounded-full"></div>
+        <p class="text-sm font-semibold tracking-widest uppercase text-white/60 mb-5">
           Krefeld · Allgemeinmedizin
         </p>
-        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-[#1D1D1F] leading-[1.05] mb-6">
+        <h1 class="text-5xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] mb-6">
           Ihre Hausarzt&shy;praxis in Krefeld.
         </h1>
-        <p class="text-lg lg:text-xl text-[#6E6E73] leading-relaxed mb-10 max-w-lg">
+        <p class="text-lg lg:text-xl text-white/70 leading-relaxed mb-10 max-w-lg">
           Frank van Dinther, Facharzt für Allgemeinmedizin.
           Am schnellsten erreichen Sie uns über Doctolib.
         </p>
@@ -30,13 +33,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center justify-center bg-[#922c37] text-white rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors"
+            class="inline-flex items-center justify-center bg-white text-[#922c37] rounded-full px-8 py-3.5 text-base font-medium hover:bg-white/90 transition-colors"
           >
             Termin buchen
           </a>
           <a
             href="#kontakt"
-            class="inline-flex items-center justify-center bg-[#F5F5F7] text-[#1D1D1F] rounded-full px-8 py-3.5 text-base font-medium hover:bg-[#E8E8ED] transition-colors"
+            class="inline-flex items-center justify-center bg-white/15 text-white border border-white/25 rounded-full px-8 py-3.5 text-base font-medium hover:bg-white/25 transition-colors backdrop-blur-sm"
           >
             Kontakt aufnehmen
           </a>
@@ -44,11 +47,68 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <!-- Typografisches Gegengewicht rechts -->
       <div class="hidden lg:block text-right shrink-0 pb-2">
-        <p class="text-[11rem] font-black leading-none tracking-tighter text-[#F5F5F7] select-none" aria-hidden="true">vD</p>
-        <p class="text-sm text-[#E8E8ED] tracking-widest uppercase select-none" aria-hidden="true">Praxis · Krefeld</p>
+        <p class="text-[11rem] font-black leading-none tracking-tighter text-white/10 select-none" aria-hidden="true">vD</p>
+        <p class="text-sm text-white/20 tracking-widest uppercase select-none" aria-hidden="true">Praxis · Krefeld</p>
       </div>
     </div>
   </section>
+
+  <style>
+    .hero-section {
+      background-color: #2a0a10;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 40%, rgba(146, 44, 55, 0.55) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 70% at 75% 15%, rgba(196, 90, 101, 0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 65% 55% at 85% 75%, rgba(80, 18, 25, 0.70) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 50% at 40% 85%, rgba(122, 36, 48, 0.40) 0%, transparent 55%),
+        radial-gradient(ellipse 35% 40% at 60% 30%, rgba(226, 155, 163, 0.15) 0%, transparent 50%);
+      animation: heroMesh 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroMesh {
+      0% {
+        background:
+          radial-gradient(ellipse 80% 60% at 15% 40%, rgba(146, 44, 55, 0.55) 0%, transparent 65%),
+          radial-gradient(ellipse 55% 70% at 75% 15%, rgba(196, 90, 101, 0.30) 0%, transparent 60%),
+          radial-gradient(ellipse 65% 55% at 85% 75%, rgba(80, 18, 25, 0.70) 0%, transparent 60%),
+          radial-gradient(ellipse 45% 50% at 40% 85%, rgba(122, 36, 48, 0.40) 0%, transparent 55%),
+          radial-gradient(ellipse 35% 40% at 60% 30%, rgba(226, 155, 163, 0.15) 0%, transparent 50%);
+      }
+      33% {
+        background:
+          radial-gradient(ellipse 70% 75% at 25% 55%, rgba(146, 44, 55, 0.60) 0%, transparent 65%),
+          radial-gradient(ellipse 60% 55% at 65% 25%, rgba(196, 90, 101, 0.35) 0%, transparent 60%),
+          radial-gradient(ellipse 75% 45% at 80% 65%, rgba(80, 18, 25, 0.65) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 60% at 30% 75%, rgba(122, 36, 48, 0.45) 0%, transparent 55%),
+          radial-gradient(ellipse 40% 35% at 70% 20%, rgba(226, 155, 163, 0.18) 0%, transparent 50%);
+      }
+      66% {
+        background:
+          radial-gradient(ellipse 85% 50% at 10% 30%, rgba(146, 44, 55, 0.50) 0%, transparent 65%),
+          radial-gradient(ellipse 50% 65% at 80% 30%, rgba(196, 90, 101, 0.28) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 65% at 90% 80%, rgba(80, 18, 25, 0.75) 0%, transparent 60%),
+          radial-gradient(ellipse 55% 45% at 45% 90%, rgba(122, 36, 48, 0.38) 0%, transparent 55%),
+          radial-gradient(ellipse 30% 45% at 55% 40%, rgba(226, 155, 163, 0.20) 0%, transparent 50%);
+      }
+      100% {
+        background:
+          radial-gradient(ellipse 75% 65% at 20% 45%, rgba(146, 44, 55, 0.58) 0%, transparent 65%),
+          radial-gradient(ellipse 58% 60% at 70% 20%, rgba(196, 90, 101, 0.32) 0%, transparent 60%),
+          radial-gradient(ellipse 70% 50% at 88% 70%, rgba(80, 18, 25, 0.68) 0%, transparent 60%),
+          radial-gradient(ellipse 48% 55% at 35% 80%, rgba(122, 36, 48, 0.42) 0%, transparent 55%),
+          radial-gradient(ellipse 38% 38% at 62% 25%, rgba(226, 155, 163, 0.16) 0%, transparent 50%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-bg { animation: none; }
+    }
+  </style>
 
   <!-- Trust bar -->
   <div class="border-y border-[#E8E8ED]">
