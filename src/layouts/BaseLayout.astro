@@ -32,8 +32,9 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
   <body>
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#E8E8ED]">
       <nav class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href="/" class="text-base font-semibold text-[#1D1D1F] tracking-tight">
-          Praxis van Dinther
+        <a href="/" class="flex items-center gap-3">
+          <img src="/windmill.svg" alt="Praxis van Dinther" class="h-7 w-auto" />
+          <span class="text-base font-semibold text-[#1D1D1F] tracking-tight hidden sm:inline">Praxis van Dinther</span>
         </a>
         <div class="hidden md:flex items-center gap-8">
           <a href="#zeiten" class="text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors">Öffnungszeiten</a>
@@ -45,7 +46,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
           href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
           target="_blank"
           rel="noopener"
-          class="bg-[#0071E3] text-white rounded-full px-5 py-2 text-sm font-medium hover:bg-[#0058B0] transition-colors"
+          class="bg-[#1D1D1F] text-white rounded-full px-5 py-2 text-sm font-medium hover:bg-[#3A3A3C] transition-colors"
         >
           Termin buchen
         </a>
@@ -69,7 +70,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
             <p class="text-sm font-semibold tracking-widest uppercase text-[#86868B] mb-3">Kontakt</p>
             <p class="text-sm text-[#6E6E73] leading-relaxed">
               Tel: 02151 478989<br />
-              <a href="mailto:info@praxis-vandinther.de" class="hover:text-[#0071E3] transition-colors">info@praxis-vandinther.de</a>
+              <a href="mailto:info@praxis-vandinther.de" class="hover:text-[#922c37] transition-colors">info@praxis-vandinther.de</a>
             </p>
           </div>
           <div>
