@@ -33,6 +33,33 @@ den vollen Kontext.
 
 ---
 
+## Schritt -1 — Das Repository übernehmen (Ownership-Transfer)
+
+Das Repo wird dir **komplett übertragen**, damit du es auf **deinem eigenen
+Vercel-Account** deployen kannst. Christian bleibt als Mitarbeiter (Collaborator)
+dabei, damit ihr weiter gemeinsam pushen könnt.
+
+1. **Transfer annehmen:** GitHub hat dir (`vandinther63`) eine E-Mail geschickt
+   („… wants to transfer the repository praxis-vandinther.de to you"). Klicke auf
+   **Accept transfer**. Danach liegt das Repo unter:
+   `https://github.com/vandinther63/praxis-vandinther.de`
+
+2. **Christian als Collaborator hinzufügen** (damit er weiter pushen kann):
+   GitHub → dein Repo → **Settings → Collaborators → Add people** →
+   `kiri-deluxe` → Rolle **Write** → einladen.
+   *(Alternativ kann das dein Claude Code für dich erledigen:*
+   *„Füge den GitHub-User kiri-deluxe als Collaborator mit Write-Rechten zu diesem Repo hinzu.")*
+
+3. **Deine eigene Vercel-Verbindung herstellen:** siehe Schritt 2 weiter unten —
+   dort importierst du das Repo `vandinther63/praxis-vandinther.de` in dein
+   Vercel-Konto. (Eine evtl. alte Verbindung auf Christians Account verliert dadurch
+   die Wirkung — das ist gewollt.)
+
+> Hinweis für Christian: Nach Franks Annahme die lokale Remote-URL umstellen mit
+> `git remote set-url origin https://github.com/vandinther63/praxis-vandinther.de.git`
+
+---
+
 ## Schritt 0 — Claude Code einrichten (so wie wir gearbeitet haben)
 
 Du möchtest die Website mit **Claude Code** weiterbauen — genau wie sie entstanden
