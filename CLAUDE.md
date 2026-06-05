@@ -20,7 +20,7 @@ Weiß, viel Weißraum, starke Typografie — keine Fotos vorhanden.
 - **Astro 5** statt Next.js: Statisch, kein Server nötig, schnell, günstig hostbar
 - **Tailwind CSS v4**: Vite-nativ, kein PostCSS-Config-Overhead
 - **Kein CMS** (kein Sanity, kein Decap): Praxis mit 10 Seiten, Änderungen selten — GitHub Web-Editor reicht aus; weniger Abhängigkeiten = weniger Angriffsfläche, DSGVO-freundlich
-- **Geist** statt Inter: Näher an SF Pro, von Vercel (passt zum Deployment)
+- **Inter Variable** (`@fontsource-variable/inter`): SF-Pro-nah, sauber ladbar (Geist wurde verworfen — kein CSS im npm-Paket)
 - **Inline SVG statt Icon-Library**: Kein Bundle-Overhead, volle Kontrolle
 - **Vercel fra1**: Deutsche Arztpraxis → Daten bleiben in Frankfurt (DSGVO)
 - **Kein Google Analytics**: Kein Cookie-Banner nötig, kein DSGVO-Risiko
@@ -31,12 +31,14 @@ Weiß, viel Weißraum, starke Typografie — keine Fotos vorhanden.
 
 Vollständige Dokumentation: `WORKFLOW.md`
 
-Kurzreferenz:
-- Primärfarbe: `#0071E3` (Apple-Blau)
-- Hintergrund: `#FFFFFF` / Fläche: `#F5F5F7`
-- Schrift: Geist (variable)
-- Border-radius Cards: `rounded-2xl` (16px) / Bento: `rounded-3xl` (24px)
-- Eyebrow-Pattern: `text-xs font-semibold tracking-widest uppercase text-[#0071E3]`
+Kurzreferenz (siehe auch `src/styles/global.css`):
+- Akzentfarbe: `#922c37` (Bordeaux, aus altem Logo) / Hover dunkler: `#7a2430`
+- Text: `#1D1D1F` primär, `#6E6E73` sekundär, `#86868B` tertiär
+- Hintergrund: `#FFFFFF` / Fläche: `#F5F5F7` / Border: `#E8E8ED`
+- Schrift: Inter Variable
+- Border-radius Cards: `rounded-2xl` (16px) / groß: `rounded-3xl` (24px)
+- Motion-Tokens (Emil Kowalski): `--ease-out`, `--ease-in-out`, `--ease-drawer` in `global.css`
+- Eyebrow-Pattern: `text-xs font-semibold tracking-widest uppercase`
 
 ---
 
