@@ -706,17 +706,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   ═══════════════════════════════════════════ -->
   <section id="formular" class="bg-[#F5F5F7] py-24">
   <div class="max-w-6xl mx-auto px-6">
-    <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Kontaktformular</p>
+    <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Kontakt</p>
     <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-4">Schreiben Sie uns.</h2>
     <p class="text-base text-[#6E6E73] max-w-lg leading-relaxed mb-12">
       Für Rezepte, Überweisungen, Fragen als Neupatient:in und alle weiteren Anliegen.
       Wir melden uns schnellstmöglich bei Ihnen.
     </p>
 
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
       <!-- Form -->
-      <div class="lg:col-span-3">
+      <div>
         <form id="contact-form" class="space-y-5" novalidate>
 
           <!-- Betreff -->
@@ -822,26 +822,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             ></textarea>
           </div>
 
-          <!-- Datenschutz -->
-          <div class="flex items-start gap-3">
-            <input
-              type="checkbox"
-              id="datenschutz"
-              name="datenschutz"
-              required
-              class="mt-1 w-4 h-4 rounded accent-[#922c37] shrink-0 cursor-pointer"
-            />
-            <label for="datenschutz" class="text-sm text-[#6E6E73] leading-relaxed cursor-pointer">
-              Ich habe die <a href="/datenschutz" class="text-[#922c37] hover:underline">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung meiner Anfrage zu.
-            </label>
-          </div>
+          <!-- Datenschutz-Hinweis (kein Pflicht-Checkbox — DSGVO-konform bei berechtigtem Interesse) -->
+          <p class="text-xs text-[#86868B] leading-relaxed">
+            Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu. Weitere Informationen in unserer <a href="/datenschutz" class="text-[#922c37] hover:underline">Datenschutzerklärung</a>.
+          </p>
 
           <!-- Submit -->
           <div>
             <button
               type="submit"
               id="submit-btn"
-              class="w-full sm:w-auto bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled
+              class="bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               Nachricht senden
             </button>
@@ -859,7 +851,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
 
       <!-- Anfahrt -->
-      <div class="lg:col-span-2 space-y-4">
+      <div class="space-y-4">
         <!-- Google Maps Embed -->
         <div class="rounded-2xl overflow-hidden" style="height:300px;">
           <iframe
@@ -883,7 +875,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             href="https://www.google.com/maps/dir/?api=1&destination=Neukirchener+Stra%C3%9Fe+5%2C+47829+Krefeld"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center gap-2 bg-[#922c37] text-white rounded-full px-6 py-2.5 text-sm font-medium hover:bg-[#7a2430] transition-colors"
+            class="inline-flex items-center gap-2 bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
             Route planen
@@ -900,6 +892,20 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
     const successEl = document.getElementById('form-success')!;
     const errorEl = document.getElementById('form-error')!;
+
+    // Disable submit until required fields are filled
+    const requiredFields = form?.querySelectorAll('[required]');
+    function checkForm() {
+      if (!form || !submitBtn) return;
+      const allFilled = Array.from(requiredFields || []).every(f => {
+        const el = f as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        return el.value.trim() !== '';
+      });
+      submitBtn.disabled = !allFilled;
+    }
+    requiredFields?.forEach(f => f.addEventListener('input', checkForm));
+    requiredFields?.forEach(f => f.addEventListener('change', checkForm));
+    checkForm();
 
     form?.addEventListener('submit', async (e) => {
       e.preventDefault();
