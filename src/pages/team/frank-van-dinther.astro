@@ -19,31 +19,35 @@ const mitgliedschaften = [
 <BaseLayout title="Frank van Dinther — Vita" description="Der Werdegang von Frank van Dinther, Facharzt für Allgemeinmedizin in Krefeld — vom Maschinenschlosser zum Hausarzt und Lehrarzt.">
 
   <!-- Kopf -->
-  <header class="max-w-3xl mx-auto px-6 pt-36 lg:pt-44 pb-16 text-center">
+  <header class="max-w-6xl mx-auto px-6 pt-36 lg:pt-44 pb-16">
     <a href="/#team" class="inline-flex items-center gap-1.5 text-sm text-[#6E6E73] hover:text-[#1D1D1F] transition-colors mb-12">
       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Zurück zum Team
     </a>
 
-    <img
-      src="/team/frank-van-dinther.jpg"
-      alt="Frank van Dinther"
-      width="160"
-      height="160"
-      class="w-40 h-40 rounded-full object-cover ring-1 ring-[#E8E8ED] mx-auto mb-8"
-    />
-    <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Vita</p>
-    <h1 class="text-4xl lg:text-6xl font-semibold tracking-tight text-[#1D1D1F] leading-[1.05]">
-      Frank van Dinther
-    </h1>
-    <p class="text-lg lg:text-xl text-[#6E6E73] mt-4">
-      Facharzt für Allgemeinmedizin · Ihr Hausarzt in Krefeld
-    </p>
+    <div class="flex flex-col sm:flex-row items-start sm:items-end gap-8">
+      <img
+        src="/team/frank-van-dinther.jpg"
+        alt="Frank van Dinther"
+        width="160"
+        height="160"
+        class="w-36 h-36 lg:w-40 lg:h-40 rounded-full object-cover ring-1 ring-[#E8E8ED] shrink-0"
+      />
+      <div>
+        <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-3">Vita</p>
+        <h1 class="text-4xl lg:text-6xl font-semibold tracking-tight text-[#1D1D1F] leading-[1.05]">
+          Frank van Dinther
+        </h1>
+        <p class="text-lg lg:text-xl text-[#6E6E73] mt-3">
+          Facharzt für Allgemeinmedizin · Ihr Hausarzt in Krefeld
+        </p>
+      </div>
+    </div>
   </header>
 
   <!-- Erzähltext -->
-  <article class="max-w-2xl mx-auto px-6 pb-8">
-    <div class="space-y-7 text-lg text-[#1D1D1F] leading-[1.75]">
+  <article class="max-w-6xl mx-auto px-6 pb-8">
+    <div class="max-w-2xl space-y-7 text-lg text-[#1D1D1F] leading-[1.75]">
       <p class="text-2xl lg:text-3xl font-medium tracking-tight leading-snug text-[#1D1D1F]">
         Nicht jeder Arzt beginnt seinen Weg im Hörsaal. Frank van Dinther begann ihn an der Werkbank.
       </p>
@@ -57,14 +61,14 @@ const mitgliedschaften = [
         Auf dem Weg dorthin sammelte er breite klinische Erfahrung: Innere Medizin und Radiologie am Sana-Klinikum Remscheid, Allgemein- und Unfallchirurgie am Sana-Krankenhaus Hürth, Allgemeinmedizin in der Praxis Dr. Müschen in Neuss und Arbeitsmedizin im werksärztlichen Dienst von Mercedes-Benz in Düsseldorf. Schon während des Studiums forschte er am Institut für experimentelle Chirurgie der HHU über die Funktion des Herzmuskels — eine Arbeit, die 1993 auf einem internationalen Symposium in Genf vorgestellt wurde.
       </p>
       <p>
-        Was ihm besonders am Herzen liegt, ist die Weitergabe. Seit 2014 ist seine Praxis Akademische Lehrpraxis der Heinrich-Heine-Universität, seit 2020 auch für das Praktische Jahr. Als Lehrbeauftragter des Instituts für Allgemeinmedizin begleitet er angehende Ärztinnen und Ärzte auf ihrem Weg — und bildet als Weiterbildungsbefugter den ärztlichen Nachwuchs in der Allgemeinmedizin aus.
+        Was ihm besonders am Herzen liegt, ist die Ausbildung zukünftiger Kollegen. Seit 2014 ist seine Praxis Akademische Lehrpraxis der Heinrich-Heine-Universität, seit 2020 auch für das Praktische Jahr. Als Lehrbeauftragter des Instituts für Allgemeinmedizin begleitet er angehende Ärztinnen und Ärzte auf ihrem Weg — und bildet als Weiterbildungsbefugter den ärztlichen Nachwuchs in der Allgemeinmedizin aus.
       </p>
     </div>
   </article>
 
   <!-- Auf einen Blick — sekundär, faktisch -->
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <div class="bg-[#F5F5F7] rounded-3xl p-8 lg:p-12">
+  <section class="max-w-6xl mx-auto px-6 py-16">
+    <div class="max-w-3xl bg-[#F5F5F7] rounded-3xl p-8 lg:p-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
         <div>
           <h2 class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Schwerpunkte & Fachkunde</h2>
@@ -97,8 +101,8 @@ const mitgliedschaften = [
   </section>
 
   <!-- CTA -->
-  <section class="max-w-3xl mx-auto px-6 pb-28">
-    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+  <section class="max-w-6xl mx-auto px-6 pb-28">
+    <div class="max-w-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
       <p class="text-lg text-[#1D1D1F]">Lernen Sie Frank van Dinther kennen.</p>
       <a
         href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
