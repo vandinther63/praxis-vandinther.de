@@ -77,17 +77,100 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="text-base text-[#6E6E73] mb-8 max-w-lg">
         Für Rezeptanfragen, Überweisungen, Neupatientenanfragen und sonstige Anliegen.
       </p>
-      <div class="rounded-2xl overflow-hidden bg-[#F5F5F7] p-2">
-        <iframe
-          src="https://form.jotform.com/261292702996062"
-          title="Kontaktformular Praxis van Dinther"
-          width="100%"
-          height="600"
-          frameborder="0"
-          class="rounded-xl bg-white"
-        ></iframe>
+
+      <div id="form-success" class="hidden mb-6 bg-[#F0FDF4] border border-[#86EFAC] rounded-2xl p-6">
+        <p class="text-base font-medium text-[#166534]">✓ Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns so bald wie möglich.</p>
       </div>
+      <div id="form-error" class="hidden mb-6 bg-[#FEF2F2] border border-[#FECACA] rounded-2xl p-6">
+        <p id="form-error-msg" class="text-base font-medium text-[#991B1B]"></p>
+      </div>
+
+      <form id="contact-form" method="POST" action="/api/contact" class="max-w-xl space-y-5">
+
+        <!-- Honeypot -->
+        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+
+        <div>
+          <label for="name" class="block text-sm font-medium text-[#1D1D1F] mb-1.5">Name <span class="text-[#922c37]">*</span></label>
+          <input
+            type="text" id="name" name="name" required autocomplete="name"
+            class="w-full rounded-xl border border-[#E8E8ED] bg-[#F5F5F7] px-4 py-3 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:ring-2 focus:ring-[#922c37]/20 transition"
+            placeholder="Vor- und Nachname"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-[#1D1D1F] mb-1.5">E-Mail <span class="text-[#922c37]">*</span></label>
+          <input
+            type="email" id="email" name="email" required autocomplete="email"
+            class="w-full rounded-xl border border-[#E8E8ED] bg-[#F5F5F7] px-4 py-3 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:ring-2 focus:ring-[#922c37]/20 transition"
+            placeholder="ihre@email.de"
+          />
+        </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium text-[#1D1D1F] mb-1.5">Telefon <span class="text-[#86868B] font-normal">(optional)</span></label>
+          <input
+            type="tel" id="phone" name="phone" autocomplete="tel"
+            class="w-full rounded-xl border border-[#E8E8ED] bg-[#F5F5F7] px-4 py-3 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:ring-2 focus:ring-[#922c37]/20 transition"
+            placeholder="02151 …"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-[#1D1D1F] mb-1.5">Nachricht <span class="text-[#922c37]">*</span></label>
+          <textarea
+            id="message" name="message" required rows="5"
+            class="w-full rounded-xl border border-[#E8E8ED] bg-[#F5F5F7] px-4 py-3 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:ring-2 focus:ring-[#922c37]/20 transition resize-none"
+            placeholder="Ihr Anliegen …"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit" id="submit-btn"
+          class="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-base font-medium text-white transition-colors"
+          style="background:#922c37;"
+          onmouseover="this.style.background='#7a2430'" onmouseout="this.style.background='#922c37'"
+        >
+          Nachricht senden
+        </button>
+      </form>
     </div>
   </section>
+
+  <script>
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const btn  = document.getElementById('submit-btn') as HTMLButtonElement;
+    const successBox = document.getElementById('form-success')!;
+    const errorBox   = document.getElementById('form-error')!;
+    const errorMsg   = document.getElementById('form-error-msg')!;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet …';
+      successBox.classList.add('hidden');
+      errorBox.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/contact', { method: 'POST', body: new FormData(form) });
+        const json = await res.json();
+        if (res.ok) {
+          form.reset();
+          successBox.classList.remove('hidden');
+          successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          errorMsg.textContent = json.error || 'Ein Fehler ist aufgetreten.';
+          errorBox.classList.remove('hidden');
+        }
+      } catch {
+        errorMsg.textContent = 'Verbindungsfehler. Bitte versuchen Sie es erneut.';
+        errorBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Nachricht senden';
+      }
+    });
+  </script>
 
 </BaseLayout>
