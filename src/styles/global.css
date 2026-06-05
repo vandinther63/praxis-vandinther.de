@@ -9,6 +9,11 @@
   --color-text-tertiary: #86868B;
   --color-accent: #922c37;
   --color-accent-light: #F9ECEC;
+
+  /* Motion system (Emil Kowalski) — stärkere Kurven als die Browser-Defaults */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 html {
@@ -16,8 +21,41 @@ html {
   color: var(--color-text-primary);
   background: #fff;
   -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Anchor-Ziele nicht unter der sticky Nav verstecken */
+section[id], div[id="kontakt"] {
+  scroll-margin-top: 88px;
+}
+
+/* Pressable-Feedback: jeder Button/CTA scalt beim Drücken leicht */
+button,
+a.cta-card,
+a[class*="rounded-full"],
+.nav-cta,
+summary {
+  transition: transform 160ms var(--ease-out);
+}
+button:active,
+a.cta-card:active,
+a[class*="rounded-full"]:active {
+  transform: scale(0.97);
+}
+
+/* Akkordeon-Inhalt: WAAPI übernimmt die Höhe, hier nur der Fallback-Zustand */
+details > .acc-body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
