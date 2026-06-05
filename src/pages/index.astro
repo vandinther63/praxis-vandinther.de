@@ -536,25 +536,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <div class="flex flex-col md:flex-row gap-6">
         <!-- Arzt -->
-        <div class="bg-white rounded-3xl p-10 flex flex-col sm:flex-row items-start gap-8 md:flex-1">
+        <div class="bg-white rounded-3xl p-10 flex flex-col sm:flex-row items-center sm:items-start gap-8 md:flex-1">
           <img
             src="/team/frank-van-dinther.jpg"
             alt="Frank van Dinther, Facharzt für Allgemeinmedizin"
-            width="128"
-            height="128"
-            class="w-28 h-28 lg:w-32 lg:h-32 rounded-full object-cover shrink-0 ring-1 ring-[#E8E8ED]"
+            width="176"
+            height="176"
+            class="w-40 h-40 lg:w-44 lg:h-44 rounded-full object-cover shrink-0 ring-1 ring-[#E8E8ED]"
             loading="lazy"
           />
-          <div>
+          <div class="flex flex-col h-full">
             <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight">Frank van Dinther</p>
             <p class="text-base text-[#6E6E73] mt-1">Facharzt für Allgemeinmedizin</p>
             <div class="mt-4 space-y-1.5">
-              {['Manuelle Medizin (Chirotherapie)', 'Lehrbeauftragter IFAM · HHU Düsseldorf', 'Weiterbildungsermächtigung · ÄK Nordrhein'].map(q => (
+              {['Manuelle Medizin (Chirotherapie)', 'Lehrbeauftragter IFAM · HHU Düsseldorf', 'Weiterbildungsermächtigung · ÄK Nordrhein', 'Niedergelassen in Krefeld seit 2003'].map(q => (
                 <p class="text-sm text-[#86868B] flex items-center gap-2">
-                  <span class="w-1 h-1 rounded-full bg-[#1D1D1F] shrink-0"></span>{q}
+                  <span class="w-1 h-1 rounded-full bg-[#922c37] shrink-0"></span>{q}
                 </p>
               ))}
             </div>
+            <a href="/team/frank-van-dinther" class="inline-flex items-center gap-1.5 text-sm font-medium text-[#922c37] mt-6 hover:gap-2.5 transition-all">
+              Vollständige Vita ansehen
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
 
