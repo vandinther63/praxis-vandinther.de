@@ -240,10 +240,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <p class="text-sm font-medium text-[#922c37] mt-4 group-hover:underline">Termin buchen →</p>
       </a>
 
-      <!-- 3. Kontaktformular -->
-      <a
-        href="#formular"
-        class="bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors group"
+      <!-- 3. Kontaktformular — öffnet Modal -->
+      <button
+        type="button"
+        id="open-form-modal"
+        class="text-left w-full bg-[#F5F5F7] rounded-3xl p-8 hover:bg-[#E8E8ED] transition-colors group"
       >
         <div class="flex items-start justify-between mb-4">
           <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center">
@@ -255,10 +256,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
         <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight mb-2">Kontaktformular</p>
         <p class="text-sm text-[#6E6E73] leading-relaxed">
-          Für Rezepte, Überweisungen, Neupatientenanfragen und alle weiteren Anliegen. Wir melden uns bei Ihnen.
+          Für Rezepte, Überweisungen, Neupatientenanfragen und alle weiteren Anliegen. Antwort meist innerhalb 1–2 Werktagen.
         </p>
-        <p class="text-sm font-medium text-[#922c37] mt-4 group-hover:underline">Zum Formular ↓</p>
-      </a>
+        <p class="text-sm font-medium text-[#922c37] mt-4 group-hover:underline">Formular öffnen →</p>
+      </button>
     </div>
 
     <!-- Telefon — letzte Option, bewusst kleiner -->
@@ -293,6 +294,39 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div>
           <p class="text-xs text-[#991B1B]/70 mb-0.5">Notarzt</p>
           <a href="tel:112" class="text-base font-semibold text-[#991B1B]">112</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anfahrt -->
+    <div class="mt-16">
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-6">Anfahrt</p>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+        <div class="lg:col-span-2 rounded-2xl overflow-hidden min-h-[280px]">
+          <iframe
+            src="https://maps.google.com/maps?q=Neukirchener+Stra%C3%9Fe+5,+47829+Krefeld&output=embed&hl=de&z=16"
+            width="100%"
+            height="100%"
+            style="border:0;display:block;height:100%;min-height:280px;"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Karte: Praxis van Dinther, Neukirchener Straße 5, Krefeld"
+          ></iframe>
+        </div>
+        <div class="bg-[#F5F5F7] rounded-2xl p-8 flex flex-col">
+          <p class="text-base font-medium text-[#1D1D1F]">Praxis van Dinther</p>
+          <p class="text-sm text-[#6E6E73] mt-1">Neukirchener Straße 5<br/>47829 Krefeld</p>
+          <p class="text-sm text-[#86868B] mt-4">Straßenbahn 042 / Bus 058<br/>Haltestelle: Neukirchener Straße</p>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=Neukirchener+Stra%C3%9Fe+5%2C+47829+Krefeld"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 bg-[#922c37] text-white rounded-full px-6 py-3 text-sm font-medium hover:bg-[#7a2430] transition-colors mt-auto self-start"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            Route planen
+          </a>
         </div>
       </div>
     </div>
@@ -702,31 +736,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- ═══════════════════════════════════════════
-       KONTAKTFORMULAR
+       KONTAKTFORMULAR — Modal-Overlay
   ═══════════════════════════════════════════ -->
-  <section id="formular" class="bg-[#F5F5F7] py-24">
-  <div class="max-w-6xl mx-auto px-6">
-    <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">Kontakt</p>
-    <h2 class="text-4xl font-semibold tracking-tight text-[#1D1D1F] mb-4">Schreiben Sie uns.</h2>
-    <p class="text-base text-[#6E6E73] max-w-lg leading-relaxed mb-12">
-      Für Rezepte, Überweisungen, Fragen als Neupatient:in und alle weiteren Anliegen.
-      Wir melden uns schnellstmöglich bei Ihnen.
-    </p>
+  <div id="form-modal" class="hidden fixed inset-0 z-[60]">
+    <!-- Backdrop -->
+    <div id="form-backdrop" class="absolute inset-0 bg-[#1a0608]/50 backdrop-blur-sm"></div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
+    <!-- Panel -->
+    <div class="absolute inset-0 flex items-start sm:items-center justify-center p-0 sm:p-6 overflow-y-auto">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="form-modal-title"
+        class="relative bg-white w-full sm:max-w-lg sm:rounded-3xl shadow-2xl my-0 sm:my-8 p-8 sm:p-10"
+      >
+        <button id="close-form-modal" type="button" aria-label="Schließen" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-[#F5F5F7] hover:bg-[#E8E8ED] flex items-center justify-center transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
 
-      <!-- Form -->
-      <div class="flex">
+        <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-3">Kontaktformular</p>
+        <h2 id="form-modal-title" class="text-2xl font-semibold tracking-tight text-[#1D1D1F] mb-3">Schreiben Sie uns.</h2>
+        <p class="text-sm text-[#6E6E73] leading-relaxed mb-7">
+          Schneller als ein Anruf: Schildern Sie Ihr Anliegen in Ruhe, wir bearbeiten es gesammelt und melden uns innerhalb von 1–2 Werktagen — ohne Warteschleife.
+        </p>
+
         <form id="contact-form" class="flex flex-col gap-5 w-full" novalidate>
 
-          <!-- Betreff (Select — Label immer oben) -->
+          <!-- Betreff -->
           <div class="ff-field">
-            <select
-              id="betreff"
-              name="betreff"
-              required
-              class="ff-input ff-select peer"
-            >
+            <select id="betreff" name="betreff" required class="ff-input ff-select peer">
               <option value="" disabled selected hidden></option>
               <option value="rezept">Rezept-Anfrage</option>
               <option value="ueberweisung">Überweisung</option>
@@ -740,7 +778,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
 
-          <!-- Name + Geburtsdatum -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="ff-field">
               <input type="text" id="name" name="name" required autocomplete="name" placeholder=" " class="ff-input peer" />
@@ -752,7 +789,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
 
-          <!-- Telefon + E-Mail -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="ff-field">
               <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder=" " class="ff-input peer" />
@@ -764,9 +800,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
           </div>
 
-          <!-- Nachricht -->
-          <div class="ff-field flex-1 flex">
-            <textarea id="nachricht" name="nachricht" required placeholder=" " class="ff-input peer resize-none w-full min-h-[140px]"></textarea>
+          <div class="ff-field">
+            <textarea id="nachricht" name="nachricht" required placeholder=" " class="ff-input peer resize-none w-full min-h-[120px]"></textarea>
             <label for="nachricht" class="ff-label">Nachricht *</label>
           </div>
 
@@ -774,11 +809,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu. Weitere Informationen in unserer <a href="/datenschutz" class="text-[#922c37] hover:underline">Datenschutzerklärung</a>.
           </p>
 
-          <div>
-            <button type="submit" id="submit-btn" disabled class="bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
-              Nachricht senden
-            </button>
-          </div>
+          <button type="submit" id="submit-btn" disabled class="bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-40 disabled:cursor-not-allowed self-start">
+            Nachricht senden
+          </button>
 
           <div id="form-success" class="hidden bg-[#F0FAF4] border border-[#4ADE80] rounded-xl p-5">
             <p class="text-sm font-medium text-[#166534]">Vielen Dank — Ihre Nachricht ist bei uns eingegangen. Wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.</p>
@@ -789,38 +822,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         </form>
       </div>
-
-      <!-- Anfahrt — gleiche Höhe wie Formular, Karte wächst mit -->
-      <div class="flex flex-col gap-4">
-        <div class="rounded-2xl overflow-hidden flex-1 min-h-[320px]">
-          <iframe
-            src="https://maps.google.com/maps?q=Neukirchener+Stra%C3%9Fe+5,+47829+Krefeld&output=embed&hl=de&z=16"
-            width="100%"
-            height="100%"
-            style="border:0;display:block;height:100%;"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Karte: Praxis van Dinther, Neukirchener Straße 5, Krefeld"
-          ></iframe>
-        </div>
-
-        <div class="bg-[#F5F5F7] rounded-2xl p-6 shrink-0">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Anfahrt</p>
-          <p class="text-sm text-[#6E6E73] mb-1">Neukirchener Straße 5 · 47829 Krefeld</p>
-          <p class="text-xs text-[#86868B] mb-5">Straßenbahn 042 / Bus 058 · Haltestelle: Neukirchener Straße</p>
-          <a
-            href="https://www.google.com/maps/dir/?api=1&destination=Neukirchener+Stra%C3%9Fe+5%2C+47829+Krefeld"
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center gap-2 bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-            Route planen
-          </a>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -866,9 +867,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     textarea.ff-input:focus ~ .ff-label,
     textarea.ff-input:not(:placeholder-shown) ~ .ff-label { top: 0.5rem; }
   </style>
-  </section>
 
   <script>
+    // Modal open/close
+    const modal = document.getElementById('form-modal');
+    const openBtn = document.getElementById('open-form-modal');
+    const closeBtn = document.getElementById('close-form-modal');
+    const backdrop = document.getElementById('form-backdrop');
+    function openModal() {
+      modal?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      (document.getElementById('betreff') as HTMLElement)?.focus();
+    }
+    function closeModal() {
+      modal?.classList.add('hidden');
+      document.body.style.overflow = '';
+      openBtn?.focus();
+    }
+    openBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) closeModal();
+    });
+
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
     const successEl = document.getElementById('form-success')!;
