@@ -92,19 +92,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
       </div>
     </header>
 
-    <!-- Fixierter CTA auf Mobile -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-t border-[#E8E8ED] px-4 py-3 safe-bottom">
-      <a
-        href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther"
-        target="_blank"
-        rel="noopener"
-        class="block w-full bg-[#922c37] text-white rounded-full py-3.5 text-base font-medium text-center hover:bg-[#7a2430] transition-colors"
-      >
-        Termin buchen
-      </a>
-    </div>
-
-    <main id="main-content" class="pb-20 md:pb-0">
+    <main id="main-content">
       <slot />
     </main>
 
@@ -225,7 +213,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     </style>
 
     <footer class="bg-[#F5F5F7] border-t border-[#E8E8ED] mt-24">
-      <div class="max-w-6xl mx-auto px-6 pt-16 pb-32 md:py-16">
+      <div class="max-w-6xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
             <p class="text-base font-semibold text-[#1D1D1F] mb-3">Praxis van Dinther</p>
