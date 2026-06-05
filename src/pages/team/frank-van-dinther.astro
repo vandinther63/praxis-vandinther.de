@@ -93,8 +93,12 @@ const stationen = [
         </div>
       </div>
 
-      <!-- Detail — fixe Höhe, volle Breite -->
-      <div class="mt-10 bg-white rounded-2xl p-8 lg:p-10 min-h-[150px] flex flex-col justify-center">
+      <!-- Detail — fixe Höhe, mit Verbinder zum aktiven Punkt -->
+      <div id="tl-detail" class="mt-8 relative bg-white rounded-2xl p-8 lg:p-10 flex flex-col justify-center">
+        <!-- Tropfen-Linie vom aktiven Punkt herunter -->
+        <span id="tl-connector" class="absolute -top-8 w-[2px] h-8 bg-[#922c37] hidden sm:block" style="left:0;transition:left 300ms var(--ease-out)"></span>
+        <!-- Sprechblasen-Spitze (Notch), wandert mit dem aktiven Jahr -->
+        <span id="tl-caret" class="absolute -top-[7px] w-[14px] h-[14px] bg-white rotate-45 rounded-[2px] hidden sm:block" style="left:0;transition:left 300ms var(--ease-out)"></span>
         <p id="tl-title" class="text-xl lg:text-2xl font-semibold text-[#1D1D1F] tracking-tight"></p>
         <p id="tl-text" class="text-[15px] lg:text-base text-[#6E6E73] mt-3 leading-relaxed"></p>
       </div>
@@ -166,6 +170,9 @@ const stationen = [
       const textEl = document.getElementById('tl-text');
       const fill = document.getElementById('tl-fill');
       const row = tl.querySelector('.tl-row');
+      const detail = document.getElementById('tl-detail');
+      const connector = document.getElementById('tl-connector');
+      const caret = document.getElementById('tl-caret');
       let active = -1;
 
       function updateFill(i) {
@@ -177,6 +184,31 @@ const stationen = [
         fill.style.width = Math.max(0, center - 9) + 'px';
       }
 
+      // Verbinder + Notch unter den aktiven Punkt schieben
+      function updateConnector(i) {
+        if (!detail || !connector || !caret) return;
+        const dot = markers[i].querySelector('.tl-dot');
+        const dBox = detail.getBoundingClientRect();
+        const dotBox = dot.getBoundingClientRect();
+        let center = dotBox.left + dotBox.width / 2 - dBox.left;
+        center = Math.max(20, Math.min(dBox.width - 20, center)); // im Kartenrand halten
+        connector.style.left = (center - 1) + 'px';
+        caret.style.left = (center - 7) + 'px';
+      }
+
+      // Höhe einmalig auf den längsten Eintrag fixieren -> kein Springen
+      function lockHeight() {
+        if (!detail) return;
+        detail.style.height = 'auto';
+        let max = 0;
+        stationen.forEach(s => {
+          titleEl.textContent = s.jahr + ' · ' + s.titel;
+          textEl.textContent = s.text;
+          max = Math.max(max, detail.offsetHeight);
+        });
+        detail.style.height = max + 'px';
+      }
+
       function show(i) {
         if (i === active) return;
         active = i;
@@ -185,6 +217,7 @@ const stationen = [
           else m.removeAttribute('data-active');
         });
         updateFill(i);
+        updateConnector(i);
         // sanfter Crossfade (Emil: blur überbrückt den Statewechsel)
         tl.classList.add('is-switching');
         setTimeout(() => {
@@ -201,12 +234,20 @@ const stationen = [
       });
 
       // Startzustand: erste Station, ohne Fade
+      lockHeight();
       active = 0;
       markers[0].setAttribute('data-active', '');
       titleEl.textContent = stationen[0].jahr + ' · ' + stationen[0].titel;
       textEl.textContent = stationen[0].text;
-      requestAnimationFrame(() => updateFill(0));
-      window.addEventListener('resize', () => updateFill(active));
+      requestAnimationFrame(() => { updateFill(0); updateConnector(0); });
+      window.addEventListener('resize', () => {
+        lockHeight();
+        // Inhalt der aktiven Station nach dem Messen wiederherstellen
+        titleEl.textContent = stationen[active].jahr + ' · ' + stationen[active].titel;
+        textEl.textContent = stationen[active].text;
+        updateFill(active);
+        updateConnector(active);
+      });
     })();
   </script>
 
