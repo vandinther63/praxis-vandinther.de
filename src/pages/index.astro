@@ -1,5 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Betriebsferien — `end` ist das letzte Tag der Schließung (ISO YYYY-MM-DD).
+// Einträge, deren Enddatum vorbei ist, werden im Browser automatisch ausgeblendet;
+// angezeigt werden immer nur die nächsten 3. Neue Termine einfach hier ergänzen.
+const betriebsferien = [
+  { label: 'Brückentag',   display: '05. Juni 2026',         end: '2026-06-05' },
+  { label: 'Sommerurlaub', display: '03.–18. August 2026',   end: '2026-08-18' },
+  { label: 'Jahreswechsel', display: '18.–31. Dezember 2026', end: '2026-12-31' },
+].sort((a, b) => a.end.localeCompare(b.end));
 ---
 
 <BaseLayout
@@ -395,20 +404,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
         <div class="bg-white rounded-2xl p-8">
-          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien 2026</p>
-          <div class="space-y-3">
-            <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
-              <span class="text-[#1D1D1F]">Brückentag</span>
-              <span class="text-[#6E6E73]">05. Juni 2026</span>
-            </div>
-            <div class="flex justify-between text-sm border-b border-[#E8E8ED] pb-3">
-              <span class="text-[#1D1D1F]">Sommerurlaub</span>
-              <span class="text-[#6E6E73]">03.–18. August 2026</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-[#1D1D1F]">Jahreswechsel</span>
-              <span class="text-[#6E6E73]">18.–31. Dezember 2026</span>
-            </div>
+          <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien</p>
+          <div id="ferien-list" class="space-y-3">
+            {betriebsferien.map(f => (
+              <div class="ferien-row flex justify-between text-sm border-b border-[#E8E8ED] pb-3" data-end={f.end}>
+                <span class="text-[#1D1D1F]">{f.label}</span>
+                <span class="text-[#6E6E73]">{f.display}</span>
+              </div>
+            ))}
+            <p id="ferien-empty" class="hidden text-sm text-[#6E6E73]">Aktuell sind keine Betriebsferien geplant.</p>
           </div>
         </div>
 
@@ -458,6 +462,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         label.style.color = '#999';
       }
     });
+  })();
+  </script>
+
+  <!-- Betriebsferien: vergangene ausblenden, nur die nächsten 3 zeigen -->
+  <script>
+  (function () {
+    const list = document.getElementById('ferien-list');
+    if (!list) return;
+    const empty = document.getElementById('ferien-empty');
+    const rows = Array.from(list.querySelectorAll('.ferien-row'));
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // nur Einträge, deren Enddatum heute oder in der Zukunft liegt
+    const upcoming = rows.filter((r) => {
+      const end = new Date(r.dataset.end + 'T23:59:59');
+      return end >= today;
+    });
+
+    rows.forEach((r) => { r.style.display = 'none'; });
+
+    const visible = upcoming.slice(0, 3);
+    visible.forEach((r, i) => {
+      r.style.display = '';
+      // letzte sichtbare Zeile ohne Trennlinie
+      r.classList.toggle('border-b', i < visible.length - 1);
+      r.classList.toggle('pb-3', i < visible.length - 1);
+    });
+
+    if (empty) empty.classList.toggle('hidden', visible.length > 0);
   })();
   </script>
 
