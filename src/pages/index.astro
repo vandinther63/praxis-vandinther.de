@@ -5,10 +5,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // Einträge, deren Enddatum vorbei ist, werden im Browser automatisch ausgeblendet;
 // angezeigt werden immer nur die nächsten 3. Neue Termine einfach hier ergänzen.
 const betriebsferien = [
-  { label: 'Brückentag',   display: '05. Juni 2026',         end: '2026-06-05' },
-  { label: 'Sommerurlaub', display: '03.–18. August 2026',   end: '2026-08-18' },
-  { label: 'Jahreswechsel', display: '18.–31. Dezember 2026', end: '2026-12-31' },
+  { label: 'Brückentag',    display: '05. Juni 2026',         start: '2026-06-05', end: '2026-06-05' },
+  { label: 'Sommerurlaub',  display: '03.–18. August 2026',   start: '2026-08-03', end: '2026-08-18' },
+  { label: 'Jahreswechsel', display: '18.–31. Dezember 2026', start: '2026-12-18', end: '2026-12-31' },
 ].sort((a, b) => a.end.localeCompare(b.end));
+
+// Notfallvertretung — wird nur während aktiver Betriebsferien namentlich angezeigt.
+const notfallvertretung = {
+  name: 'Dr. Elvi Tudor',
+  adresse: 'Alte Krefelder Straße 20 · 47829 Krefeld',
+  telefon: '02151 481148',
+  telHref: 'tel:02151481148',
+};
 ---
 
 <BaseLayout
@@ -407,7 +415,7 @@ const betriebsferien = [
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Betriebsferien</p>
           <div id="ferien-list" class="space-y-3">
             {betriebsferien.map(f => (
-              <div class="ferien-row flex justify-between text-sm border-b border-[#E8E8ED] pb-3" data-end={f.end}>
+              <div class="ferien-row flex justify-between text-sm border-b border-[#E8E8ED] pb-3" data-start={f.start} data-end={f.end}>
                 <span class="text-[#1D1D1F]">{f.label}</span>
                 <span class="text-[#6E6E73]">{f.display}</span>
               </div>
@@ -419,11 +427,16 @@ const betriebsferien = [
         <div class="bg-white rounded-2xl p-8">
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Notfallvertretung</p>
           <div class="space-y-4">
-            <div>
-              <p class="text-base font-medium text-[#1D1D1F]">Dr. Elvi Tudor</p>
-              <p class="text-sm text-[#6E6E73]">Alte Krefelder Straße 20 · 47829 Krefeld</p>
-              <a href="tel:02151481148" class="text-sm text-[#922c37] hover:underline">02151 481148</a>
+            <!-- Namentliche Vertretung — nur sichtbar, wenn gerade Betriebsferien laufen -->
+            <div id="notfall-named" class="hidden">
+              <p class="text-base font-medium text-[#1D1D1F]">{notfallvertretung.name}</p>
+              <p class="text-sm text-[#6E6E73]">{notfallvertretung.adresse}</p>
+              <a href={notfallvertretung.telHref} class="text-sm text-[#922c37] hover:underline">{notfallvertretung.telefon}</a>
             </div>
+            <!-- Platzhalter — außerhalb der Schließzeiten -->
+            <p id="notfall-placeholder" class="text-sm text-[#6E6E73] leading-relaxed">
+              Während unserer Betriebsferien geben wir hier Ihre Notfallvertretung bekannt. Außerhalb der Schließzeiten erreichen Sie uns zu den gewohnten Sprechzeiten.
+            </p>
             <div class="border-t border-[#E8E8ED] pt-4">
               <p class="text-xs text-[#86868B] mb-1">Ärztlicher Bereitschaftsdienst</p>
               <a href="tel:116117" class="text-base font-semibold text-[#1D1D1F] hover:text-[#922c37]">116 117</a>
@@ -492,6 +505,18 @@ const betriebsferien = [
     });
 
     if (empty) empty.classList.toggle('hidden', visible.length > 0);
+
+    // Notfallvertretung: Name nur zeigen, wenn HEUTE innerhalb einer Schließzeit liegt
+    const active = rows.some((r) => {
+      if (!r.dataset.start) return false;
+      const start = new Date(r.dataset.start + 'T00:00:00');
+      const end = new Date(r.dataset.end + 'T23:59:59');
+      return today >= start && today <= end;
+    });
+    const named = document.getElementById('notfall-named');
+    const placeholder = document.getElementById('notfall-placeholder');
+    if (named) named.classList.toggle('hidden', !active);
+    if (placeholder) placeholder.classList.toggle('hidden', active);
   })();
   </script>
 
