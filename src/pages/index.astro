@@ -559,17 +559,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
 
         <!-- MFA -->
-        <div class="bg-white rounded-3xl p-10 flex flex-col gap-5 md:w-72">
+        <div class="bg-white rounded-3xl p-10 flex flex-col gap-5 md:w-80">
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B]">Med. Fachangestellte</p>
           {[
-            { name: 'Astrid Vermeulen', initials: 'AV' },
-            { name: 'Bianka Gröters', initials: 'BG' },
-            { name: 'Denise Gerhards-Hamm', initials: 'DGH' },
+            { name: 'Astrid Vermeulen', img: '/team/team-vermeulen.png' },
+            { name: 'Bianka Gröters', img: '/team/Bianka.png' },
+            { name: 'Denise Gerhards-Hamm', img: '/team/denise.png' },
           ].map(p => (
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 rounded-xl bg-[#F5F5F7] flex items-center justify-center shrink-0">
-                <span class="text-xs font-semibold text-[#6E6E73]">{p.initials}</span>
-              </div>
+              <img
+                src={p.img}
+                alt={p.name + ', Medizinische Fachangestellte'}
+                width="56"
+                height="56"
+                class="w-14 h-14 rounded-full object-cover object-top shrink-0 ring-1 ring-[#E8E8ED]"
+                loading="lazy"
+              />
               <p class="text-sm font-medium text-[#1D1D1F]">{p.name}</p>
             </div>
           ))}
