@@ -187,11 +187,32 @@ schicken und prüfen, ob die Mail bei `info@praxis-vandinther.de` ankommt.
 
 ---
 
+## Gemeinsam am selben Repo arbeiten (Frank + Christian)
+
+Dieses Repo wird von **beiden** gepflegt — ihr arbeitet am selben Stand, jeder hat
+eine lokale Kopie (`git clone`). Damit ihr euch nicht gegenseitig überschreibt,
+diese einfache Reihenfolge einhalten:
+
+```bash
+git pull        # IMMER zuerst — holt die neuesten Änderungen des anderen
+# ... Änderungen machen ...
+git add -A && git commit -m "kurze Beschreibung"
+git pull        # nochmal ziehen, falls der andere zwischendurch gepusht hat
+git push        # hochladen → Vercel deployt automatisch
+```
+
+Solange ihr nicht *gleichzeitig dieselbe Zeile derselben Datei* ändert, gibt es
+keine Konflikte. Falls Git doch mal einen „merge conflict" meldet: einfach Claude
+Code fragen — *„löse den Merge-Konflikt"* — er führt dich durch.
+
+---
+
 ## Tägliche Arbeit (Cheatsheet)
 
 ```bash
 npm run dev      # lokal ansehen + live bearbeiten
 npm run build    # Produktions-Build lokal testen
+git pull         # vor dem Arbeiten: neuesten Stand holen
 git add -A && git commit -m "…"   # Änderung speichern
 git push         # → Vercel deployt automatisch
 ```
