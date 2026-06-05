@@ -984,38 +984,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         const body = details.querySelector('summary')?.nextElementSibling as HTMLElement | null;
         if (!summary || !body) return;
 
-        let animating = false;
+        let current: Animation | null = null;
 
         summary.addEventListener('click', (e) => {
           if (reduce) return; // native Verhalten bei reduced-motion
           e.preventDefault();
-          if (animating) return;
-          animating = true;
+
+          // Laufende Animation sauber abbrechen (interruptierbar)
+          if (current) { current.cancel(); current = null; }
+
+          // overflow während der Animation hart kappen, damit nichts überquillt
+          body.style.overflow = 'hidden';
 
           if (!details.open) {
             // ÖFFNEN
             details.open = true;
             const h = body.scrollHeight;
-            body.animate(
+            current = body.animate(
               [
                 { height: '0px', opacity: 0 },
                 { height: h + 'px', opacity: 1 },
               ],
               { duration: 240, easing: EASE }
-            ).onfinish = () => { animating = false; };
+            );
+            current.onfinish = () => {
+              body.style.overflow = '';   // natürliche Höhe wiederherstellen
+              current = null;
+            };
           } else {
-            // SCHLIESSEN
-            const h = body.scrollHeight;
-            const anim = body.animate(
+            // SCHLIESSEN — von echter aktueller Höhe auf 0
+            const h = body.getBoundingClientRect().height;
+            current = body.animate(
               [
                 { height: h + 'px', opacity: 1 },
                 { height: '0px', opacity: 0 },
               ],
-              { duration: 200, easing: EASE }
+              { duration: 200, easing: EASE, fill: 'forwards' }
             );
-            anim.onfinish = () => {
-              details.open = false;
-              animating = false;
+            current.onfinish = () => {
+              details.open = false;        // erst NACH der Animation einklappen
+              body.style.overflow = '';
+              current?.cancel();            // forwards-fill lösen
+              current = null;
             };
           }
         });
