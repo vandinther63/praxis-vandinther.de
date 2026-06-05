@@ -33,6 +33,71 @@ den vollen Kontext.
 
 ---
 
+## Schritt 0 — Claude Code einrichten (so wie wir gearbeitet haben)
+
+Du möchtest die Website mit **Claude Code** weiterbauen — genau wie sie entstanden
+ist. Dafür einmalig einrichten:
+
+### 0.1 — Claude Code installieren
+Anleitung: https://docs.claude.com/claude-code → installieren und mit deinem
+Claude-Konto anmelden. Danach im Projektordner starten:
+
+```bash
+cd praxis-vandinther.de
+claude
+```
+
+Claude liest dann automatisch `CLAUDE.md` ein und kennt den vollen Projektkontext.
+
+### 0.2 — Die Skills installieren (mit diesen haben wir gebaut)
+
+Diese drei sind die **Kern-Skills** für das Design und die Codequalität der Seite.
+Im laufenden Claude Code eingeben:
+
+```text
+# 1) Offizieller Anthropic-Marketplace (für frontend-design + code-review)
+/plugin marketplace add anthropics/claude-plugins-official
+/plugin install frontend-design@claude-plugins-official
+/plugin install code-review@claude-plugins-official
+
+# 2) UI/UX Pro Max (das zentrale Design-Intelligence-Skill)
+/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
+/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
+```
+
+Nach der Installation neu starten, wenn Claude Code dazu auffordert. Aufrufen kannst
+du sie dann im Chat, z. B.:
+- `/ui-ux-pro-max` — Layout/Design planen, prüfen, verbessern (das wichtigste)
+- `/frontend-design` — distinctive, hochwertige Frontend-Umsetzung
+- `/code-review` — Code auf Fehler und Qualität prüfen, bevor du pushst
+
+**Optional (Bild-Retusche der Team-Fotos):** das Adobe-Skill (`/plugin` →
+Adobe-Plugin suchen). Nur nötig, wenn du Fotos bearbeiten willst.
+
+> Hinweis: Bei der Entwicklung wurden zusätzlich ein paar persönliche Skills von
+> Christian benutzt (z. B. `gstack`-Browsing zum Screenshot-Prüfen, ein Motion-Skill
+> „emil-design-eng"). Die sind Teil von Christians eigenem Setup und **für die
+> Website nicht erforderlich** — die drei Skills oben genügen vollständig.
+
+### 0.3 — Vercel mit Claude Code verbinden (empfohlen)
+
+Damit dein Claude Code Deployments auslösen, Build-Logs lesen und Fehler direkt
+sehen kann, verbinde deinen Vercel-Account. Im laufenden Claude Code:
+
+```text
+/mcp
+```
+
+Dort den **Vercel**-Connector hinzufügen/authentifizieren (Browser-Login mit deinem
+Vercel-Konto). Danach kann Claude z. B. „zeig mir die letzten Deployments" oder
+„warum ist der letzte Build fehlgeschlagen" beantworten.
+
+> Wichtig zu wissen: Das ist Komfort, **kein Muss**. Das eigentliche Deployen läuft
+> automatisch über GitHub (siehe Schritt 2) — jeder `git push` deployt von selbst.
+> Die Vercel-Verbindung in Claude hilft nur beim Beobachten und Steuern.
+
+---
+
 ## Schritt 1 — Projekt lokal holen und starten
 
 ```bash
