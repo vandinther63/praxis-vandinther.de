@@ -76,29 +76,27 @@ const stationen = [
     </div>
   </article>
 
-  <!-- Interaktive Timeline -->
+  <!-- Interaktive Timeline — in einer Card -->
   <section class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-sm font-semibold tracking-widest uppercase text-[#86868B] mb-3">Werdegang</h2>
-    <p class="text-sm text-[#86868B] mb-12">Fahren Sie die Stationen mit der Maus ab — oder tippen Sie auf dem Smartphone.</p>
-
-    <div id="timeline">
-      <!-- Marker-Reihe -->
-      <div class="tl-scroll overflow-x-auto pb-3 -mx-6 px-6 sm:mx-0 sm:px-0">
-        <div class="tl-row relative flex gap-10 sm:gap-0 sm:justify-between min-w-max sm:min-w-0">
-          <div class="absolute left-2 right-2 top-[8px] h-px bg-[#E8E8ED]"></div>
+    <div id="timeline" class="bg-[#F5F5F7] rounded-3xl p-8 lg:p-12">
+      <!-- Marker-Reihe (pt-3 = Headroom, damit der aktive Punkt beim Vergrößern nicht abgeschnitten wird) -->
+      <div class="tl-scroll overflow-x-auto pt-3 pb-3 -mx-8 px-8 lg:-mx-12 lg:px-12">
+        <div class="tl-row relative flex gap-12 sm:gap-0 sm:justify-between min-w-max sm:min-w-0">
+          <div class="absolute left-[9px] right-[9px] top-[9px] h-[2px] bg-[#E3DADB] rounded-full"></div>
+          <div id="tl-fill" class="absolute left-[9px] top-[9px] h-[2px] bg-[#922c37] rounded-full transition-all duration-300" style="width:0"></div>
           {stationen.map((s, i) => (
             <button type="button" class="tl-marker group relative z-10 flex flex-col items-center gap-3 shrink-0 cursor-pointer" data-i={i} aria-label={s.jahr + ' — ' + s.titel}>
-              <span class="tl-dot block w-[18px] h-[18px] rounded-full bg-white border-2 border-[#E8E8ED] transition-all duration-200"></span>
+              <span class="tl-dot block w-[18px] h-[18px] rounded-full bg-white border-2 border-[#D8CBCD] transition-all duration-200"></span>
               <span class="tl-year text-sm font-medium text-[#86868B] tabular-nums whitespace-nowrap transition-colors duration-200">{s.jahr}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <!-- Detail -->
-      <div class="mt-10 bg-[#F5F5F7] rounded-2xl p-8 lg:p-10">
+      <!-- Detail — fixe Höhe, volle Breite -->
+      <div class="mt-10 bg-white rounded-2xl p-8 lg:p-10 min-h-[150px] flex flex-col justify-center">
         <p id="tl-title" class="text-xl lg:text-2xl font-semibold text-[#1D1D1F] tracking-tight"></p>
-        <p id="tl-text" class="text-[15px] lg:text-base text-[#6E6E73] mt-3 leading-relaxed max-w-2xl"></p>
+        <p id="tl-text" class="text-[15px] lg:text-base text-[#6E6E73] mt-3 leading-relaxed"></p>
       </div>
     </div>
   </section>
@@ -166,7 +164,18 @@ const stationen = [
       const markers = Array.from(tl.querySelectorAll('.tl-marker'));
       const titleEl = document.getElementById('tl-title');
       const textEl = document.getElementById('tl-text');
+      const fill = document.getElementById('tl-fill');
+      const row = tl.querySelector('.tl-row');
       let active = -1;
+
+      function updateFill(i) {
+        if (!fill || !row) return;
+        const dot = markers[i].querySelector('.tl-dot');
+        const rowBox = row.getBoundingClientRect();
+        const dotBox = dot.getBoundingClientRect();
+        const center = dotBox.left + dotBox.width / 2 - rowBox.left;
+        fill.style.width = Math.max(0, center - 9) + 'px';
+      }
 
       function show(i) {
         if (i === active) return;
@@ -175,6 +184,7 @@ const stationen = [
           if (idx === i) m.setAttribute('data-active', '');
           else m.removeAttribute('data-active');
         });
+        updateFill(i);
         // sanfter Crossfade (Emil: blur überbrückt den Statewechsel)
         tl.classList.add('is-switching');
         setTimeout(() => {
@@ -195,6 +205,8 @@ const stationen = [
       markers[0].setAttribute('data-active', '');
       titleEl.textContent = stationen[0].jahr + ' · ' + stationen[0].titel;
       textEl.textContent = stationen[0].text;
+      requestAnimationFrame(() => updateFill(0));
+      window.addEventListener('resize', () => updateFill(active));
     })();
   </script>
 
