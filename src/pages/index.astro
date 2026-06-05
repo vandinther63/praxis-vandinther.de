@@ -713,133 +713,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Wir melden uns schnellstmöglich bei Ihnen.
     </p>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-stretch">
 
       <!-- Form -->
-      <div>
-        <form id="contact-form" class="space-y-5" novalidate>
+      <div class="flex">
+        <form id="contact-form" class="flex flex-col gap-5 w-full" novalidate>
 
-          <!-- Betreff -->
-          <div>
-            <label for="betreff" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-              Ihr Anliegen <span class="text-[#922c37]">*</span>
-            </label>
-            <div class="relative">
-              <select
-                id="betreff"
-                name="betreff"
-                required
-                class="w-full appearance-none bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors cursor-pointer"
-              >
-                <option value="" disabled selected>Bitte wählen …</option>
-                <option value="rezept">Rezept-Anfrage</option>
-                <option value="ueberweisung">Überweisung</option>
-                <option value="neupatient">Anfrage als Neupatient:in</option>
-                <option value="befund">Befund-Rückfrage</option>
-                <option value="sonstiges">Sonstiges</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m6 9 6 6 6-6"/>
-                </svg>
-              </div>
+          <!-- Betreff (Select — Label immer oben) -->
+          <div class="ff-field">
+            <select
+              id="betreff"
+              name="betreff"
+              required
+              class="ff-input ff-select peer"
+            >
+              <option value="" disabled selected hidden></option>
+              <option value="rezept">Rezept-Anfrage</option>
+              <option value="ueberweisung">Überweisung</option>
+              <option value="neupatient">Anfrage als Neupatient:in</option>
+              <option value="befund">Befund-Rückfrage</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
+            <label for="betreff" class="ff-label ff-label-fixed">Ihr Anliegen *</label>
+            <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#86868B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
 
           <!-- Name + Geburtsdatum -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label for="name" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-                Name <span class="text-[#922c37]">*</span>
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                autocomplete="name"
-                placeholder="Vor- und Nachname"
-                class="w-full bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
-              />
+            <div class="ff-field">
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder=" " class="ff-input peer" />
+              <label for="name" class="ff-label">Name *</label>
             </div>
-            <div>
-              <label for="geburtsdatum" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-                Geburtsdatum
-              </label>
-              <input
-                type="date"
-                id="geburtsdatum"
-                name="geburtsdatum"
-                autocomplete="bday"
-                class="w-full bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
-              />
+            <div class="ff-field">
+              <input type="date" id="geburtsdatum" name="geburtsdatum" autocomplete="bday" class="ff-input ff-date peer" />
+              <label for="geburtsdatum" class="ff-label ff-label-fixed">Geburtsdatum</label>
             </div>
           </div>
 
           <!-- Telefon + E-Mail -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div>
-              <label for="telefon" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-                Telefon <span class="text-[#922c37]">*</span>
-              </label>
-              <input
-                type="tel"
-                id="telefon"
-                name="telefon"
-                required
-                autocomplete="tel"
-                placeholder="02151 …"
-                class="w-full bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
-              />
+            <div class="ff-field">
+              <input type="tel" id="telefon" name="telefon" required autocomplete="tel" placeholder=" " class="ff-input peer" />
+              <label for="telefon" class="ff-label">Telefon *</label>
             </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-                E-Mail
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
-                placeholder="ihre@email.de"
-                class="w-full bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors"
-              />
+            <div class="ff-field">
+              <input type="email" id="email" name="email" autocomplete="email" placeholder=" " class="ff-input peer" />
+              <label for="email" class="ff-label">E-Mail</label>
             </div>
           </div>
 
           <!-- Nachricht -->
-          <div>
-            <label for="nachricht" class="block text-sm font-medium text-[#1D1D1F] mb-2">
-              Nachricht <span class="text-[#922c37]">*</span>
-            </label>
-            <textarea
-              id="nachricht"
-              name="nachricht"
-              required
-              rows="5"
-              placeholder="Ihr Anliegen …"
-              class="w-full bg-white border border-[#E8E8ED] rounded-xl px-4 py-3.5 text-base text-[#1D1D1F] placeholder:text-[#86868B] focus:outline-none focus:border-[#922c37] focus:bg-white transition-colors resize-none"
-            ></textarea>
+          <div class="ff-field flex-1 flex">
+            <textarea id="nachricht" name="nachricht" required placeholder=" " class="ff-input peer resize-none w-full min-h-[140px]"></textarea>
+            <label for="nachricht" class="ff-label">Nachricht *</label>
           </div>
 
-          <!-- Datenschutz-Hinweis (kein Pflicht-Checkbox — DSGVO-konform bei berechtigtem Interesse) -->
           <p class="text-xs text-[#86868B] leading-relaxed">
             Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu. Weitere Informationen in unserer <a href="/datenschutz" class="text-[#922c37] hover:underline">Datenschutzerklärung</a>.
           </p>
 
-          <!-- Submit -->
           <div>
-            <button
-              type="submit"
-              id="submit-btn"
-              disabled
-              class="bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            >
+            <button type="submit" id="submit-btn" disabled class="bg-[#922c37] text-white rounded-full px-10 py-3.5 text-base font-medium hover:bg-[#7a2430] transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
               Nachricht senden
             </button>
           </div>
 
-          <!-- Feedback -->
           <div id="form-success" class="hidden bg-[#F0FAF4] border border-[#4ADE80] rounded-xl p-5">
             <p class="text-sm font-medium text-[#166534]">Vielen Dank — Ihre Nachricht ist bei uns eingegangen. Wir melden uns innerhalb von 1–2 Werktagen bei Ihnen.</p>
           </div>
@@ -850,15 +790,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </form>
       </div>
 
-      <!-- Anfahrt -->
-      <div class="space-y-4">
-        <!-- Google Maps Embed -->
-        <div class="rounded-2xl overflow-hidden" style="height:300px;">
+      <!-- Anfahrt — gleiche Höhe wie Formular, Karte wächst mit -->
+      <div class="flex flex-col gap-4">
+        <div class="rounded-2xl overflow-hidden flex-1 min-h-[320px]">
           <iframe
             src="https://maps.google.com/maps?q=Neukirchener+Stra%C3%9Fe+5,+47829+Krefeld&output=embed&hl=de&z=16"
             width="100%"
-            height="300"
-            style="border:0;display:block;"
+            height="100%"
+            style="border:0;display:block;height:100%;"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
@@ -866,8 +805,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           ></iframe>
         </div>
 
-        <!-- Route planen -->
-        <div class="bg-[#F5F5F7] rounded-2xl p-6">
+        <div class="bg-[#F5F5F7] rounded-2xl p-6 shrink-0">
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Anfahrt</p>
           <p class="text-sm text-[#6E6E73] mb-1">Neukirchener Straße 5 · 47829 Krefeld</p>
           <p class="text-xs text-[#86868B] mb-5">Straßenbahn 042 / Bus 058 · Haltestelle: Neukirchener Straße</p>
@@ -885,6 +823,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     </div>
   </div>
+
+  <style>
+    /* Floating-Label Felder */
+    .ff-field { position: relative; }
+    .ff-input {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #E8E8ED;
+      border-radius: 0.75rem;
+      padding: 1.4rem 1rem 0.5rem 1rem;
+      font-size: 1rem;
+      color: #1D1D1F;
+      transition: border-color 0.15s;
+      appearance: none;
+    }
+    .ff-input:focus { outline: none; border-color: #922c37; }
+    .ff-select { cursor: pointer; }
+    .ff-label {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: #86868B;
+      pointer-events: none;
+      transition: all 0.15s ease;
+      background: transparent;
+    }
+    /* Floated state: when filled (not placeholder-shown) or focused */
+    .ff-input:focus ~ .ff-label,
+    .ff-input:not(:placeholder-shown) ~ .ff-label,
+    .ff-label-fixed {
+      top: 0.5rem;
+      transform: translateY(0);
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+    }
+    .ff-input:focus ~ .ff-label { color: #922c37; }
+    /* Textarea label sits at top, not centered */
+    textarea.ff-input ~ .ff-label { top: 1.1rem; transform: none; }
+    textarea.ff-input:focus ~ .ff-label,
+    textarea.ff-input:not(:placeholder-shown) ~ .ff-label { top: 0.5rem; }
+  </style>
   </section>
 
   <script>
