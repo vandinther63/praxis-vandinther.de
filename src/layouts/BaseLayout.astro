@@ -45,11 +45,11 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
           </a>
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-8">
-            <a href="#zeiten" class="text-sm nav-link transition-colors">Sprechzeiten</a>
-            <a href="#leistungen" class="text-sm nav-link transition-colors">Leistungen</a>
-            <a href="#team" class="text-sm nav-link transition-colors">Team</a>
-            <a href="#wissen" class="text-sm nav-link transition-colors">Wissen</a>
-            <a href="#kontakt" class="text-sm nav-link transition-colors">Kontakt</a>
+            <a href="/#zeiten" class="text-sm nav-link transition-colors">Sprechzeiten</a>
+            <a href="/#leistungen" class="text-sm nav-link transition-colors">Leistungen</a>
+            <a href="/#team" class="text-sm nav-link transition-colors">Team</a>
+            <a href="/#wissen" class="text-sm nav-link transition-colors">Wissen</a>
+            <a href="/#kontakt" class="text-sm nav-link transition-colors">Kontakt</a>
           </div>
           <div class="flex items-center gap-3">
             <a
@@ -83,11 +83,11 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
         aria-label="Mobile Navigation"
       >
         <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
-          <a href="#zeiten" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Sprechzeiten</a>
-          <a href="#leistungen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Leistungen</a>
-          <a href="#team" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Team</a>
-          <a href="#wissen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Wissen</a>
-          <a href="#kontakt" class="mobile-nav-link py-3 text-base text-[#1D1D1F] hover:text-[#922c37] transition-colors">Kontakt</a>
+          <a href="/#zeiten" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Sprechzeiten</a>
+          <a href="/#leistungen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Leistungen</a>
+          <a href="/#team" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Team</a>
+          <a href="/#wissen" class="mobile-nav-link py-3 text-base text-[#1D1D1F] border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors">Wissen</a>
+          <a href="/#kontakt" class="mobile-nav-link py-3 text-base text-[#1D1D1F] hover:text-[#922c37] transition-colors">Kontakt</a>
         </div>
       </div>
     </header>
@@ -144,24 +144,34 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
         });
       });
 
-      // Smooth scroll
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      // Smooth scroll — funktioniert für #x und /#x, aber nur wenn das Ziel HIER existiert.
+      // Auf einer Unterseite existiert das Ziel nicht → normaler Link führt zur Startseite.
+      document.querySelectorAll('a[href*="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
-          const href = anchor.getAttribute('href');
-          if (!href || href === '#') return;
-          const target = document.querySelector(href);
+          const href = anchor.getAttribute('href') || '';
+          const hashIndex = href.indexOf('#');
+          if (hashIndex === -1) return;
+          const id = href.slice(hashIndex + 1);
+          if (!id) return;
+          const target = document.getElementById(id);
           if (target) {
             e.preventDefault();
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, '', '#' + id);
           }
         });
       });
 
-      // Nav: frosted glass over hero → white when scrolled past hero
+      // Nav: über dem Hero Frosted-Glass, danach weiß. Ohne Hero (Unterseiten) immer weiß.
       const nav = document.getElementById('site-nav');
       const hero = document.getElementById('start');
       function updateNav() {
-        if (!nav || !hero) return;
+        if (!nav) return;
+        if (!hero) { // Unterseite ohne dunklen Hero → sofort lesbarer Weiß-Zustand
+          nav.classList.remove('nav-hero');
+          nav.classList.add('nav-scrolled');
+          return;
+        }
         const heroBottom = hero.offsetTop + hero.offsetHeight - 80;
         if (window.scrollY > heroBottom) {
           nav.classList.remove('nav-hero');
