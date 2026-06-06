@@ -20,7 +20,6 @@
     "astro": "^6.4.4",
     "astro-seo": "^1.1.0",
     "geist": "^1.7.2",
-    "lucide-astro": "^0.556.0",
-    "resend": "^6.12.4"
+    "lucide-astro": "^0.556.0"
   }
 }
