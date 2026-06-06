@@ -46,7 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ error: 'Bitte eine gültige E-Mail-Adresse angeben.' }), { status: 400 });
   }
 
-  const apiKey = import.meta.env.BREVO_API_KEY;
+  const apiKey = import.meta.env.BREVO_API_KEY || process.env.BREVO_API_KEY;
   if (!apiKey) {
     console.error('BREVO_API_KEY fehlt');
     return new Response(JSON.stringify({ error: 'E-Mail-Versand ist nicht konfiguriert.' }), { status: 500 });
