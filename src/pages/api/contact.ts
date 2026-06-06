@@ -4,18 +4,27 @@ import { Resend } from 'resend';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  const data = await request.formData();
+  const contentType = request.headers.get('content-type') || '';
+  let raw: Record<string, string> = {};
+
+  if (contentType.includes('application/json')) {
+    raw = await request.json();
+  } else {
+    const fd = await request.formData();
+    fd.forEach((v, k) => { raw[k] = v as string; });
+  }
 
   // Honeypot — Spam-Schutz
-  const honeypot = data.get('website') as string;
-  if (honeypot) {
+  if (raw['website']) {
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   }
 
-  const name    = (data.get('name')    as string)?.trim();
-  const email   = (data.get('email')   as string)?.trim();
-  const phone   = (data.get('phone')   as string)?.trim() || '–';
-  const message = (data.get('message') as string)?.trim();
+  const name    = raw['name']?.trim();
+  const email   = raw['email']?.trim();
+  const phone   = raw['phone']?.trim() || raw['telefon']?.trim() || '–';
+  const anliegen = raw['anliegen'] || '';
+  const geburt  = raw['geburtsdatum'] || '';
+  const message = raw['message']?.trim() || raw['nachricht']?.trim();
 
   // Validierung
   if (!name || !email || !message) {
@@ -34,9 +43,11 @@ export const POST: APIRoute = async ({ request }) => {
       replyTo: email,
       subject: `Neue Nachricht von ${name}`,
       html: `
+        ${anliegen ? `<p><strong>Anliegen:</strong> ${anliegen}</p>` : ''}
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>E-Mail:</strong> ${email}</p>
         <p><strong>Telefon:</strong> ${phone}</p>
+        ${geburt ? `<p><strong>Geburtsdatum:</strong> ${geburt}</p>` : ''}
         <hr />
         <p><strong>Nachricht:</strong></p>
         <p style="white-space:pre-wrap">${message}</p>
