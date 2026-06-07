@@ -792,9 +792,10 @@ const notfallvertretung = {
       <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-6">Weiterführende Links</p>
       <div class="space-y-3">
         {[
+          { href: 'https://deximed.de/patienten/', label: 'Deximed', desc: 'Medizinisch validierte Gesundheitsdatenbank' },
           { href: 'https://www.rauchfrei-info.de', label: 'rauchfrei-info.de', desc: 'Informationen zum Rauchstopp' },
-          { href: 'https://www.arztsuche-nordrhein.de', label: 'Arztsuche Nordrhein', desc: 'Arzt- & Psychotherapeutensuche' },
-          { href: 'https://www.kbv.de/html/patienteninformationen.php', label: 'KBV Patienteninfos', desc: 'Kassenärztliche Bundesvereinigung' },
+          { href: 'https://arztsuche.kvno.de', label: 'Praxis- und Psychotherapeutensuche', desc: 'Arzt- & Psychotherapeutensuche der KV Nordrhein' },
+          { href: 'https://www.kbv.de', label: 'Kassenärztliche Bundesvereinigung', desc: 'Informationsangebot der KBV' },
         ].map(({ href, label, desc }) => (
           <a href={href} target="_blank" rel="noopener" class="flex flex-col py-3 border-b border-[#E8E8ED] group hover:border-[#922c37] transition-colors">
             <span class="text-sm font-medium text-[#1D1D1F] group-hover:text-[#922c37] transition-colors">{label} →</span>
