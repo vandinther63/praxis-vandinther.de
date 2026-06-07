@@ -29,22 +29,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
-    <!-- Links -->
-    <div class="border-t border-[#E8E8ED] pt-16">
+    <!-- Empfohlene Datenbank: Deximed -->
+    <div class="border-t border-[#E8E8ED] pt-16 mb-16">
+      <h2 class="text-3xl font-semibold tracking-tight text-[#1D1D1F] mb-8">Verlässliche Gesundheitsinformationen</h2>
+      <a
+        href="https://deximed.de/patienten/"
+        target="_blank"
+        rel="noopener"
+        class="group block max-w-2xl rounded-3xl border border-[#E8E8ED] bg-white p-8 sm:p-10 hover:border-[#922c37]/40 hover:shadow-[0_8px_30px_rgba(146,44,55,0.08)] transition-all duration-300"
+      >
+        <div class="flex items-start gap-5">
+          <div class="shrink-0 w-12 h-12 rounded-2xl bg-[#922c37]/10 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#922c37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold tracking-widest uppercase text-[#922c37] mb-2">Empfohlene Datenbank</p>
+            <p class="text-xl font-semibold text-[#1D1D1F] tracking-tight mb-1.5">Deximed — Patienteninformationen</p>
+            <p class="text-base text-[#6E6E73] leading-relaxed">
+              Medizinisch validierte, ärztlich geprüfte Gesundheitsdatenbank. Verständliche Informationen zu Beschwerden, Krankheiten und Behandlungen — unabhängig und werbefrei.
+            </p>
+            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-[#922c37] mt-4 group-hover:gap-2.5 transition-all">
+              Zur Datenbank
+              <span aria-hidden="true">→</span>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Weitere Links -->
+    <div>
       <h2 class="text-3xl font-semibold tracking-tight text-[#1D1D1F] mb-8">Weiterführende Links</h2>
       <div class="space-y-3 max-w-xl">
         {[
-          { href: 'https://deximed.de/patienten/', label: 'Deximed — Patienteninformationen', desc: 'Medizinisch validierte Gesundheitsdatenbank für Patientinnen und Patienten' },
           { href: 'https://www.rauchfrei-info.de', label: 'rauchfrei-info.de', desc: 'Informationen zum Rauchstopp' },
           { href: 'https://www.arztsuche-nordrhein.de', label: 'arztsuche-nordrhein.de', desc: 'Arztsuche Nordrhein' },
           { href: 'https://www.kbv.de/html/patienteninformationen.php', label: 'KBV Patienteninformationen', desc: 'Kassenärztliche Bundesvereinigung' },
         ].map(({ href, label, desc }) => (
-          <a href={href} target="_blank" rel="noopener" class="flex items-center justify-between py-4 border-b border-[#E8E8ED] hover:text-[#0071E3] transition-colors group">
+          <a href={href} target="_blank" rel="noopener" class="flex items-center justify-between py-4 border-b border-[#E8E8ED] hover:text-[#922c37] transition-colors group">
             <div>
-              <p class="text-base font-medium text-[#1D1D1F] group-hover:text-[#0071E3]">{label}</p>
+              <p class="text-base font-medium text-[#1D1D1F] group-hover:text-[#922c37]">{label}</p>
               <p class="text-sm text-[#86868B]">{desc}</p>
             </div>
-            <span class="text-[#86868B] group-hover:text-[#0071E3]">→</span>
+            <span class="text-[#86868B] group-hover:text-[#922c37]">→</span>
           </a>
         ))}
       </div>
