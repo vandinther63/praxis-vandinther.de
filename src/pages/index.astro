@@ -1049,7 +1049,8 @@ const notfallvertretung = {
     // Smooth accordion open/close via WAAPI — gilt für alle <details> (Leistungen + Wissen)
     (function () {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const EASE = 'cubic-bezier(0.23, 1, 0.32, 1)';
+      const EASE_OPEN  = 'cubic-bezier(0.23, 1, 0.32, 1)';   // easeOut — sanftes Aufklappen
+      const EASE_CLOSE = 'cubic-bezier(0.4, 0, 1, 1)';       // ease-in — beschleunigt zum Ende, kein „Stehenbleiben"
 
       document.querySelectorAll('details').forEach((el) => {
         const details = el as HTMLDetailsElement;
@@ -1079,7 +1080,7 @@ const notfallvertretung = {
                 { height: '0px', opacity: 0 },
                 { height: h + 'px', opacity: 1 },
               ],
-              { duration: 240, easing: EASE }
+              { duration: 240, easing: EASE_OPEN }
             );
             current.onfinish = () => {
               body.style.overflow = '';   // natürliche Höhe wiederherstellen
@@ -1093,7 +1094,7 @@ const notfallvertretung = {
                 { height: h + 'px', opacity: 1 },
                 { height: '0px', opacity: 0 },
               ],
-              { duration: 200, easing: EASE, fill: 'forwards' }
+              { duration: 180, easing: EASE_CLOSE, fill: 'forwards' }
             );
             current.onfinish = () => {
               details.open = false;        // erst NACH der Animation einklappen
