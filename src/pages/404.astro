@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Seite nicht gefunden" description="Diese Seite existiert nicht mehr. Hier finden Sie alle aktuellen Informationen der Praxis van Dinther in Krefeld.">
+
+  <section class="max-w-6xl mx-auto px-6 py-24 lg:py-32">
+    <div class="max-w-xl">
+      <p class="text-sm font-semibold tracking-widest uppercase text-[#922c37] mb-4">404 — Seite nicht gefunden</p>
+      <h1 class="text-4xl lg:text-5xl font-semibold tracking-tight text-[#1D1D1F] mb-6">
+        Diese Seite gibt es nicht&nbsp;mehr.
+      </h1>
+      <p class="text-lg text-[#6E6E73] leading-relaxed mb-10">
+        Unsere Website wurde neu aufgebaut — möglicherweise sind Sie einem alten Link gefolgt.
+        Alles Wichtige finden Sie auf der Startseite.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-16">
+        <a href="/" class="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-base font-medium text-white bg-[#922c37] hover:bg-[#7a2430] transition-colors">
+          Zur Startseite
+        </a>
+        <a href="https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-full px-8 py-3.5 text-base font-medium text-[#1D1D1F] bg-[#F5F5F7] hover:bg-[#E8E8ED] transition-colors">
+          Termin buchen →
+        </a>
+      </div>
+
+      <div class="border-t border-[#E8E8ED] pt-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-4">Direkt zu</p>
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
+          <a href="/#kontakt" class="text-sm text-[#1D1D1F] hover:text-[#922c37] transition-colors">Kontakt</a>
+          <a href="/aktuelles" class="text-sm text-[#1D1D1F] hover:text-[#922c37] transition-colors">Sprechzeiten</a>
+          <a href="/leistung" class="text-sm text-[#1D1D1F] hover:text-[#922c37] transition-colors">Leistungen</a>
+          <a href="/team" class="text-sm text-[#1D1D1F] hover:text-[#922c37] transition-colors">Team</a>
+          <a href="/wissen" class="text-sm text-[#1D1D1F] hover:text-[#922c37] transition-colors">Patienteninformationen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
