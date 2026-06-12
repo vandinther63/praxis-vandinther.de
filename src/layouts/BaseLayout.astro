@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import { SEO } from 'astro-seo';
+import logoRaw from '../../public/fvd-logo.svg?raw';
+// XML-Deklaration entfernen, damit das SVG sauber inline eingebettet werden kann
+const logoSvg = logoRaw.replace(/<\?xml[^>]*\?>/, '').trim();
 
 interface Props {
   title: string;
@@ -36,12 +39,8 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <header id="site-nav" class="sticky top-0 z-50 transition-all duration-300 nav-hero">
       <div class="max-w-6xl mx-auto px-6">
         <div class="h-16 flex items-center justify-between">
-          <a href="/" class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <img src="/windmill.svg" alt="" class="h-9 sm:h-10 w-auto nav-logo shrink-0" />
-            <div class="min-w-0">
-              <p class="text-[13px] sm:text-sm font-semibold leading-tight nav-brand-name truncate">Frank van Dinther</p>
-              <p class="hidden sm:block text-xs leading-tight nav-brand-sub truncate">Facharzt für Allgemeinmedizin</p>
-            </div>
+          <a href="/" class="flex items-center min-w-0" aria-label="Frank van Dinther — Facharzt für Allgemeinmedizin">
+            <span class="brand-logo shrink-0" aria-hidden="true" set:html={logoSvg}></span>
           </a>
           <!-- Desktop nav -->
           <div class="hidden md:flex items-center gap-8">
@@ -181,11 +180,20 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
         -webkit-backdrop-filter: blur(20px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       }
-      .nav-hero .nav-logo { filter: brightness(0) invert(1); }
+      /* Inline-Logo: Größe + farbsteuerbar über CSS-Variablen */
+      .brand-logo { display: inline-flex; }
+      .brand-logo :global(svg) { height: 1.85rem; width: auto; display: block; }
+      @media (min-width: 640px) { .brand-logo :global(svg) { height: 2.5rem; } }
+      /* Schrift (Name + Untertitel) — alle Pfade außer der Windmühle (.cls-1) */
+      .brand-logo :global(svg path:not(.cls-1)) { fill: var(--logo-text, #1D1D1F); }
+      /* Windmühle */
+      .brand-logo :global(svg .cls-1) { stroke: var(--logo-mill, #922c37); }
+
+      .nav-hero .brand-logo { --logo-text: #fff; --logo-mill: #fff; }
+      .nav-scrolled .brand-logo { --logo-text: #1D1D1F; --logo-mill: #922c37; }
+
       .nav-hero .nav-link { color: rgba(255,255,255,0.85); }
       .nav-hero .nav-link:hover { color: #fff; }
-      .nav-hero .nav-brand-name { color: #fff; }
-      .nav-hero .nav-brand-sub { color: rgba(255,255,255,0.6); }
       .nav-hero .nav-cta {
         background: rgba(255,255,255,0.2);
         color: #fff;
@@ -202,8 +210,6 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
       }
       .nav-scrolled .nav-link { color: #6E6E73; }
       .nav-scrolled .nav-link:hover { color: #1D1D1F; }
-      .nav-scrolled .nav-brand-name { color: #1D1D1F; }
-      .nav-scrolled .nav-brand-sub { color: #6E6E73; }
       .nav-scrolled .nav-cta { background: #922c37; color: #fff; border: none; }
       .nav-scrolled .nav-cta:hover { background: #7a2430; }
 
