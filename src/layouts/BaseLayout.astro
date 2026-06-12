@@ -2,8 +2,11 @@
 import '../styles/global.css';
 import { SEO } from 'astro-seo';
 import logoRaw from '../../public/fvd-logo.svg?raw';
-// XML-Deklaration entfernen, damit das SVG sauber inline eingebettet werden kann
-const logoSvg = logoRaw.replace(/<\?xml[^>]*\?>/, '').trim();
+// XML-Deklaration + IDs entfernen (Logo kommt mehrfach vor → keine doppelten IDs)
+const logoSvg = logoRaw
+  .replace(/<\?xml[^>]*\?>/, '')
+  .replace(/\sid="[^"]*"/g, '')
+  .trim();
 
 interface Props {
   title: string;
@@ -205,8 +208,8 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
       }
       /* Inline-Logo: Größe + farbsteuerbar über CSS-Variablen */
       .brand-logo { display: inline-flex; }
-      .brand-logo :global(svg) { height: 1.85rem; width: auto; display: block; }
-      @media (min-width: 640px) { .brand-logo :global(svg) { height: 2.5rem; } }
+      .brand-logo :global(svg) { height: 2rem; width: auto; display: block; }
+      @media (min-width: 640px) { .brand-logo :global(svg) { height: 2.75rem; } }
       /* Schrift (Name + Untertitel) — alle Pfade außer der Windmühle (.cls-1) */
       .brand-logo :global(svg path:not(.cls-1)) { fill: var(--logo-text, #1D1D1F); }
       /* Windmühle */
@@ -245,7 +248,8 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
       <div class="max-w-6xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <p class="text-base font-semibold text-[#1D1D1F] mb-3">Praxis van Dinther</p>
+            <span class="sr-only">Praxis van Dinther — Frank van Dinther, Facharzt für Allgemeinmedizin</span>
+            <span class="brand-logo footer-logo block mb-4" aria-hidden="true" set:html={logoSvg}></span>
             <p class="text-sm text-[#6E6E73] leading-relaxed">
               Neukirchener Straße 5<br />47829 Krefeld
             </p>
