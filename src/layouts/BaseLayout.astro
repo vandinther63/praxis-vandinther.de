@@ -20,6 +20,7 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <SEO
       title={fullTitle}
       description={description}
@@ -27,10 +28,32 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
         basic: {
           title: fullTitle,
           type: 'website',
-          image: '/og-image.png',
+          image: 'https://www.praxis-vandinther.de/og-image.png',
         },
       }}
     />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Physician',
+      name: 'Praxis van Dinther',
+      url: 'https://www.praxis-vandinther.de',
+      image: 'https://www.praxis-vandinther.de/og-image.png',
+      medicalSpecialty: 'PrimaryCare',
+      telephone: '+49 2151 478989',
+      faxNumber: '+49 2151 475594',
+      email: 'info@praxis-vandinther.de',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Neukirchener Straße 5',
+        postalCode: '47829',
+        addressLocality: 'Krefeld',
+        addressCountry: 'DE',
+      },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:30', closes: '12:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Thursday'], opens: '16:00', closes: '18:00' },
+      ],
+    })} />
   </head>
   <body>
     <!-- Skip link for keyboard users -->
@@ -243,9 +266,15 @@ const fullTitle = title === 'Praxis van Dinther' ? title : `${title} — Praxis 
             </div>
           </div>
         </div>
-        <div class="border-t border-[#E8E8ED] mt-12 pt-8">
-          <p class="text-xs text-[#86868B]">© {new Date().getFullYear()} Praxis van Dinther. Alle Rechte vorbehalten.</p>
+        <div class="border-t border-[#E8E8ED] mt-12 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+          <p class="text-xs text-[#86868B]">© <span id="copyright-year">{new Date().getFullYear()}</span> Praxis van Dinther. Alle Rechte vorbehalten.</p>
+          <p class="text-xs text-[#86868B]">Letzte Aktualisierung: {new Date().toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'Europe/Berlin' })}</p>
         </div>
+        <script>
+          // Jahr clientseitig aktualisieren — bleibt auch ohne neue Veröffentlichung korrekt
+          const y = document.getElementById('copyright-year');
+          if (y) y.textContent = String(new Date().getFullYear());
+        </script>
       </div>
     </footer>
   </body>
