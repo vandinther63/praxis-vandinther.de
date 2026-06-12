@@ -1,9 +1,21 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "praxis-vandinther-de.vercel.app" }],
+      "destination": "https://www.praxis-vandinther.de/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "praxis-vandinther-de.vercel.app" }],
       "destination": "https://www.praxis-vandinther.de/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "praxis-vandinther-de-frank-van-dinther-s-projects.vercel.app" }],
+      "destination": "https://www.praxis-vandinther.de/",
       "permanent": true
     },
     {
