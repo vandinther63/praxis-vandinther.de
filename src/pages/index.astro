@@ -10,13 +10,34 @@ const betriebsferien = [
   { label: 'Jahreswechsel', display: '18.–31. Dezember 2026', start: '2026-12-18', end: '2026-12-31' },
 ].sort((a, b) => a.end.localeCompare(b.end));
 
-// Notfallvertretung — wird nur während aktiver Betriebsferien namentlich angezeigt.
-const notfallvertretung = {
-  name: 'Dr. Elvi Tudor',
-  adresse: 'Alte Krefelder Straße 20 · 47829 Krefeld',
-  telefon: '02151 481148',
-  telHref: 'tel:02151481148',
-};
+// Notfallvertretung — Einträge ohne Zeitraum sind ganzjährig sichtbar; Einträge mit
+// start/end erscheinen clientseitig nur innerhalb ihres Zeitfensters (nach heutigem Datum).
+const notfallvertretungen = [
+  {
+    name: 'Dr. Elvi Tudor',
+    adresse: 'Alte Krefelder Straße 20 · 47829 Krefeld',
+    telefon: '02151 481148',
+    telHref: 'tel:02151481148',
+  },
+  {
+    name: 'Ursula van Kann',
+    adresse: 'Traarer Rathausmarkt 7b',
+    telefon: '02151 656770',
+    telHref: 'tel:02151656770',
+    zeitraum: 'In dringenden Fällen · 03.–18. August 2026',
+    start: '2026-08-03',
+    end: '2026-08-18',
+  },
+  {
+    name: 'Dr. Paul Ridderskamp',
+    adresse: 'Oberstraße 37',
+    telefon: '02151 480031',
+    telHref: 'tel:02151480031',
+    zeitraum: 'In dringenden Fällen · 10.–18. August 2026',
+    start: '2026-08-10',
+    end: '2026-08-18',
+  },
+];
 ---
 
 <BaseLayout
@@ -430,17 +451,15 @@ const notfallvertretung = {
 
         <div class="bg-white rounded-2xl p-8">
           <p class="text-xs font-semibold tracking-widest uppercase text-[#86868B] mb-5">Notfallvertretung</p>
-          <div class="space-y-4">
-            <!-- Namentliche Vertretung — nur sichtbar, wenn gerade Betriebsferien laufen -->
-            <div id="notfall-named" class="hidden">
-              <p class="text-base font-medium text-[#1D1D1F]">{notfallvertretung.name}</p>
-              <p class="text-sm text-[#6E6E73]">{notfallvertretung.adresse}</p>
-              <a href={notfallvertretung.telHref} class="text-sm text-[#922c37] hover:underline">{notfallvertretung.telefon}</a>
-            </div>
-            <!-- Platzhalter — außerhalb der Schließzeiten -->
-            <p id="notfall-placeholder" class="text-sm text-[#6E6E73] leading-relaxed">
-              Während unserer Betriebsferien geben wir hier Ihre Notfallvertretung bekannt. Außerhalb der Schließzeiten erreichen Sie uns zu den gewohnten Sprechzeiten.
-            </p>
+          <div id="notfall-list" class="space-y-4">
+            {notfallvertretungen.map(v => (
+              <div class="notfall-entry" data-start={v.start ?? ''} data-end={v.end ?? ''}>
+                {v.zeitraum && <p class="text-xs text-[#922c37] mb-0.5">{v.zeitraum}</p>}
+                <p class="text-base font-medium text-[#1D1D1F]">{v.name}</p>
+                <p class="text-sm text-[#6E6E73]">{v.adresse}</p>
+                <a href={v.telHref} class="text-sm text-[#922c37] hover:underline">{v.telefon}</a>
+              </div>
+            ))}
             <div class="border-t border-[#E8E8ED] pt-4">
               <p class="text-xs text-[#86868B] mb-1">Ärztlicher Bereitschaftsdienst</p>
               <a href="tel:116117" class="text-base font-semibold text-[#1D1D1F] hover:text-[#922c37]">116 117</a>
@@ -510,17 +529,14 @@ const notfallvertretung = {
 
     if (empty) empty.classList.toggle('hidden', visible.length > 0);
 
-    // Notfallvertretung: Name nur zeigen, wenn HEUTE innerhalb einer Schließzeit liegt
-    const active = rows.some((r) => {
-      if (!r.dataset.start) return false;
-      const start = new Date(r.dataset.start + 'T00:00:00');
-      const end = new Date(r.dataset.end + 'T23:59:59');
-      return today >= start && today <= end;
+    // Notfallvertretung: Einträge ohne Zeitraum immer zeigen; datierte nur im Fenster
+    document.querySelectorAll('#notfall-list .notfall-entry').forEach((e) => {
+      const s = e.dataset.start;
+      if (!s) { e.style.display = ''; return; }
+      const start = new Date(s + 'T00:00:00');
+      const end = new Date(e.dataset.end + 'T23:59:59');
+      e.style.display = (today >= start && today <= end) ? '' : 'none';
     });
-    const named = document.getElementById('notfall-named');
-    const placeholder = document.getElementById('notfall-placeholder');
-    if (named) named.classList.toggle('hidden', !active);
-    if (placeholder) placeholder.classList.toggle('hidden', active);
   })();
   </script>
 
