@@ -529,13 +529,13 @@ const notfallvertretungen = [
 
     if (empty) empty.classList.toggle('hidden', visible.length > 0);
 
-    // Notfallvertretung: Einträge ohne Zeitraum immer zeigen; datierte nur im Fenster
+    // Notfallvertretung: datierte Einträge als Vorankündigung sofort zeigen,
+    // nach Ablauf des Zeitraums automatisch ausblenden
     document.querySelectorAll('#notfall-list .notfall-entry').forEach((e) => {
-      const s = e.dataset.start;
-      if (!s) { e.style.display = ''; return; }
-      const start = new Date(s + 'T00:00:00');
-      const end = new Date(e.dataset.end + 'T23:59:59');
-      e.style.display = (today >= start && today <= end) ? '' : 'none';
+      const el = e as HTMLElement;
+      if (!el.dataset.end) { el.style.display = ''; return; }
+      const end = new Date(el.dataset.end + 'T23:59:59');
+      el.style.display = (today <= end) ? '' : 'none';
     });
   })();
   </script>
