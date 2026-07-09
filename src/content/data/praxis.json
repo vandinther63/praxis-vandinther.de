@@ -13,7 +13,10 @@
   "email": "info@praxis-vandinther.de",
   "doctolib": "https://www.doctolib.de/allgemeinarzt/krefeld/frank-van-dinther",
   "oepnv": {
-    "linien": ["Straßenbahn 042", "Bus 058"],
+    "linien": [
+      "Straßenbahn 042",
+      "Bus 058"
+    ],
     "haltestelle": "Neukirchener Straße"
   },
   "sprechzeiten": {
@@ -33,20 +36,26 @@
     },
     "infekt": {
       "label": "Atemwegsinfekt-Sprechstunde",
-      "zeiten": ["Mo–Do: 11:00–12:00 Uhr"],
+      "zeiten": [
+        "Mo–Do: 11:00–12:00 Uhr"
+      ],
       "hinweis": "Nur mit FFP2-Maske. Kein Termin erforderlich."
     }
   },
   "betriebsferien2026": [
-    { "datum": "05. Juni 2026", "anlass": "Brückentag" },
-    { "datum": "03.–18. August 2026", "anlass": "Sommerurlaub" },
-    { "datum": "18.–31. Dezember 2026", "anlass": "Jahreswechsel" }
+    {
+      "datum": "05. Juni 2026",
+      "anlass": "Brückentag"
+    },
+    {
+      "datum": "03.–18. August 2026",
+      "anlass": "Sommerurlaub"
+    },
+    {
+      "datum": "18.–31. Dezember 2026",
+      "anlass": "Jahreswechsel"
+    }
   ],
-  "notfallvertretung": {
-    "name": "Dr. Elvi Tudor",
-    "adresse": "Alte Krefelder Straße 20, 47829 Krefeld",
-    "telefon": "02151 481148"
-  },
   "notfall": {
     "bereitschaftsdienst": "116 117",
     "notarzt": "112"
