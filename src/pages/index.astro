@@ -18,7 +18,8 @@ const notfallvertretungen = [
     adresse: 'Traarer Rathausmarkt 7b · 47802 Krefeld',
     telefon: '02151 656770',
     telHref: 'tel:02151656770',
-    zeitraum: 'In dringenden Fällen · 03.–18. August 2026 · nur vormittags',
+    zeitraum: 'In dringenden Fällen · 03.–18. August 2026',
+    hinweis: 'nur vormittags',
     start: '2026-08-03',
     end: '2026-08-18',
   },
@@ -448,7 +449,7 @@ const notfallvertretungen = [
           <div id="notfall-list" class="space-y-4">
             {notfallvertretungen.map(v => (
               <div class="notfall-entry" data-start={v.start ?? ''} data-end={v.end ?? ''}>
-                {v.zeitraum && <p class="text-xs text-[#922c37] mb-0.5">{v.zeitraum}</p>}
+                {v.zeitraum && <p class="text-xs text-[#922c37] mb-0.5">{v.zeitraum}{v.hinweis && <> · <strong class="font-bold uppercase">{v.hinweis}</strong></>}</p>}
                 <p class="text-base font-medium text-[#1D1D1F]">{v.name}</p>
                 <p class="text-sm text-[#6E6E73]">{v.adresse}</p>
                 <a href={v.telHref} class="text-sm text-[#922c37] hover:underline">{v.telefon}</a>
