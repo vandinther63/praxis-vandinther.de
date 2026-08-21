@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-// Betriebsferien — `end` ist das letzte Tag der Schließung (ISO YYYY-MM-DD).
+// Betriebsferien werden zentral in src/data/betriebsferien.ts gepflegt —
+// dieselbe Liste versorgt auch die Bestätigungsmail des Kontaktformulars.
 // Einträge, deren Enddatum vorbei ist, werden im Browser automatisch ausgeblendet;
-// angezeigt werden immer nur die nächsten 3. Neue Termine einfach hier ergänzen.
-const betriebsferien = [
-  { label: 'Brückentag',    display: '05. Juni 2026',         start: '2026-06-05', end: '2026-06-05' },
-  { label: 'Sommerurlaub',  display: '03.–18. August 2026',   start: '2026-08-03', end: '2026-08-18' },
-  { label: 'Praxisurlaub',  display: '04.–11. September 2026', start: '2026-09-04', end: '2026-09-11' },
-  { label: 'Praxisurlaub',  display: '02.–06. November 2026',  start: '2026-11-02', end: '2026-11-06' },
-  { label: 'Jahreswechsel', display: '18.–31. Dezember 2026', start: '2026-12-18', end: '2026-12-31' },
-].sort((a, b) => a.end.localeCompare(b.end));
+// angezeigt werden immer nur die nächsten 3.
+import { betriebsferien } from '../data/betriebsferien';
 
 // Notfallvertretung — Einträge ohne Zeitraum sind ganzjährig sichtbar; Einträge mit
 // start/end erscheinen clientseitig nur innerhalb ihres Zeitfensters (nach heutigem Datum).
