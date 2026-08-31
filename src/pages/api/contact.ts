@@ -13,7 +13,70 @@ const BESTAETIGUNG: 'immer' | 'nur-urlaub' | 'aus' = 'immer';
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-export const POST: APIRoute = async ({ request }) => {
+// ─── Spam-Schutz ────────────────────────────────────────────────────────────
+// Mehrere Schichten. Erkannte Bots bekommen bewusst eine Erfolgsmeldung
+// ({ ok: true }), damit sie nicht merken, dass sie blockiert wurden.
+
+const ERLAUBTE_HERKUNFT = ['praxis-vandinther.de', 'www.praxis-vandinther.de'];
+
+// Mindestzeit zwischen Formular-Aufruf und Absenden (Menschen tippen länger)
+const MIN_AUSFUELLZEIT_MS = 3000;
+
+// Höchstzahl Anfragen pro IP und Stunde
+const MAX_PRO_STUNDE = 5;
+const zugriffe = new Map<string, number[]>();
+
+function rateLimitUeberschritten(ip: string) {
+  const jetzt = Date.now();
+  const fenster = (zugriffe.get(ip) ?? []).filter(t => jetzt - t < 3600_000);
+  fenster.push(jetzt);
+  zugriffe.set(ip, fenster);
+  // Speicher begrenzen: alte Einträge gelegentlich verwerfen
+  if (zugriffe.size > 500) {
+    for (const [k, v] of zugriffe) if (!v.some(t => jetzt - t < 3600_000)) zugriffe.delete(k);
+  }
+  return fenster.length > MAX_PRO_STUNDE;
+}
+
+/** Erkennt Zufallszeichenfolgen wie "aLckOQnjaLBRaPPi" an ungewöhnlich vielen
+ *  Wechseln von Klein- zu Großbuchstaben innerhalb eines Wortes.
+ *  Echte Namen und deutsche Wörter haben davon höchstens ein bis zwei. */
+function wirktZufaellig(text: string) {
+  return (text.match(/[a-zäöüß][A-ZÄÖÜ]/g) ?? []).length >= 3;
+}
+
+/** Liefert den Ablehnungsgrund für Protokollzwecke — oder null, wenn alles sauber ist. */
+function spamGrund(request: Request, raw: Record<string, string>, name: string, message: string) {
+  if (raw['website']) return 'Honeypot ausgefüllt';
+
+  // Anfrage muss von der eigenen Website kommen, nicht per Skript von außen
+  const herkunft = request.headers.get('origin') || request.headers.get('referer') || '';
+  if (!herkunft) return 'Kein Origin/Referer (direkter Zugriff auf die Schnittstelle)';
+  try {
+    if (!ERLAUBTE_HERKUNFT.includes(new URL(herkunft).hostname)) return `Fremde Herkunft: ${herkunft}`;
+  } catch {
+    return `Unlesbare Herkunft: ${herkunft}`;
+  }
+
+  // Zeitfalle: das Formular meldet, wie lange das Ausfüllen gedauert hat
+  const dauer = Number(raw['dauer']);
+  if (!Number.isFinite(dauer)) return 'Zeitangabe fehlt (Formular nicht benutzt)';
+  if (dauer < MIN_AUSFUELLZEIT_MS) return `Zu schnell abgeschickt (${dauer} ms)`;
+
+  if (wirktZufaellig(name)) return 'Name wirkt wie eine Zufallszeichenfolge';
+  if (wirktZufaellig(message)) return 'Nachricht wirkt wie eine Zufallszeichenfolge';
+  if ((message.match(/https?:\/\/|www\./gi) ?? []).length > 1) return 'Mehrere Links in der Nachricht';
+
+  return null;
+}
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || clientAddress || 'unbekannt';
+  if (rateLimitUeberschritten(ip)) {
+    console.warn('Spam abgewiesen — Rate-Limit überschritten:', ip);
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  }
+
   const contentType = request.headers.get('content-type') || '';
   let raw: Record<string, string> = {};
 
@@ -22,11 +85,6 @@ export const POST: APIRoute = async ({ request }) => {
   } else {
     const fd = await request.formData();
     fd.forEach((v, k) => { raw[k] = v as string; });
-  }
-
-  // Honeypot — Spam-Schutz
-  if (raw['website']) {
-    return new Response(JSON.stringify({ ok: true }), { status: 200 });
   }
 
   const ANLIEGEN_LABELS: Record<string, string> = {
@@ -51,6 +109,12 @@ export const POST: APIRoute = async ({ request }) => {
   }
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return new Response(JSON.stringify({ error: 'Bitte eine gültige E-Mail-Adresse angeben.' }), { status: 400 });
+  }
+
+  const grund = spamGrund(request, raw, name, message);
+  if (grund) {
+    console.warn(`Spam abgewiesen (${ip}): ${grund}`);
+    return new Response(JSON.stringify({ ok: true }), { status: 200 });
   }
 
   const apiKey = import.meta.env.BREVO_API_KEY || process.env.BREVO_API_KEY;

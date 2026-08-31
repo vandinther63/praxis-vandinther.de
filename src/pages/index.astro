@@ -1005,6 +1005,8 @@ const notfallvertretungen = [
 
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+    // Spam-Schutz: Wie lange war das Formular geöffnet? Bots senden sofort.
+    const formGeoeffnetSeit = Date.now();
     const successEl = document.getElementById('form-success')!;
     const errorEl = document.getElementById('form-error')!;
 
@@ -1035,7 +1037,10 @@ const notfallvertretungen = [
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+          body: JSON.stringify({
+            ...Object.fromEntries(new FormData(form)),
+            dauer: Date.now() - formGeoeffnetSeit,
+          }),
         });
         if (res.ok) {
           successEl.classList.remove('hidden');
