@@ -479,6 +479,9 @@ const notfallvertretungen = [
                 <a href={v.telHref} class="text-sm text-[#922c37] hover:underline">{v.telefon}</a>
               </div>
             ))}
+            <p id="notfall-empty" class="hidden text-sm text-[#6E6E73] leading-relaxed">
+              Die Notfallvertretung geben wir hier rechtzeitig vor unseren Betriebsferien bekannt.
+            </p>
             <div class="border-t border-[#E8E8ED] pt-4">
               <p class="text-xs text-[#86868B] mb-1">Ärztlicher Bereitschaftsdienst</p>
               <a href="tel:116117" class="text-base font-semibold text-[#1D1D1F] hover:text-[#922c37]">116 117</a>
@@ -548,14 +551,21 @@ const notfallvertretungen = [
 
     if (empty) empty.classList.toggle('hidden', visible.length > 0);
 
-    // Notfallvertretung: datierte Einträge als Vorankündigung sofort zeigen,
-    // nach Ablauf des Zeitraums automatisch ausblenden
+    // Notfallvertretung: datierte Einträge erscheinen 14 Tage vor Beginn und
+    // verschwinden nach Ablauf. Einträge ohne Datum sind dauerhaft sichtbar.
+    const VORLAUF_TAGE = 14;
+    let sichtbareVertretungen = 0;
     document.querySelectorAll('#notfall-list .notfall-entry').forEach((e) => {
       const el = e as HTMLElement;
-      if (!el.dataset.end) { el.style.display = ''; return; }
+      if (!el.dataset.start || !el.dataset.end) { el.style.display = ''; sichtbareVertretungen++; return; }
+      const sichtbarAb = new Date(el.dataset.start + 'T00:00:00');
+      sichtbarAb.setDate(sichtbarAb.getDate() - VORLAUF_TAGE);
       const end = new Date(el.dataset.end + 'T23:59:59');
-      el.style.display = (today <= end) ? '' : 'none';
+      const zeigen = today >= sichtbarAb && today <= end;
+      el.style.display = zeigen ? '' : 'none';
+      if (zeigen) sichtbareVertretungen++;
     });
+    document.getElementById('notfall-empty')?.classList.toggle('hidden', sichtbareVertretungen > 0);
   })();
   </script>
 
