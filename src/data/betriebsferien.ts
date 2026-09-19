@@ -6,7 +6,7 @@ export const betriebsferien = [
   { label: 'Sommerurlaub',  display: '03.–18. August 2026',    start: '2026-08-03', end: '2026-08-18' },
   { label: 'Praxisurlaub',  display: '04.–11. September 2026', start: '2026-09-04', end: '2026-09-11' },
   { label: 'Praxisurlaub',  display: '02.–06. November 2026',  start: '2026-11-02', end: '2026-11-06' },
-  { label: 'Jahreswechsel', display: '18.–31. Dezember 2026',  start: '2026-12-18', end: '2026-12-31' },
+  { label: 'Jahreswechsel', display: '28.–31. Dezember 2026',  start: '2026-12-28', end: '2026-12-31' },
 ].sort((a, b) => a.end.localeCompare(b.end));
 
 /** Liefert die aktuell laufende Schließzeit — oder null, wenn die Praxis geöffnet ist. */
