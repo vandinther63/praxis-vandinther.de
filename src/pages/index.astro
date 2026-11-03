@@ -502,13 +502,19 @@ const notfallvertretungen = [
     </div>
   </section>
 
-  <script>
+  <script define:vars={{ ferienDaten: betriebsferien }}>
   (function(){
     const now = new Date();
     const day = now.getDay(); // 0=So, 1=Mo, ..., 5=Fr, 6=Sa
     const mins = now.getHours() * 60 + now.getMinutes();
     const isWeekday = day >= 1 && day <= 5;
     const isMoDiDo = [1, 2, 4].includes(day);
+
+    // Betriebsferien haben Vorrang vor den regulären Sprechzeiten
+    const p = (n) => String(n).padStart(2, '0');
+    const heute = `${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`;
+    const ferien = ferienDaten.find(f => heute >= f.start && heute <= f.end);
+
     const status = {
       termin: isWeekday && (mins >= 510 && mins < 600 || isMoDiDo && mins >= 960 && mins < 1020),
       offen:  isWeekday && (mins >= 600 && mins < 660 || isMoDiDo && mins >= 1020 && mins < 1080),
@@ -519,7 +525,11 @@ const notfallvertretungen = [
       const dot = card.querySelector('.live-dot');
       const label = card.querySelector('.live-label');
       if (!dot || !label) return;
-      if (status[key]) {
+      if (ferien) {
+        dot.style.background = '#F59E0B';
+        label.textContent = 'Betriebsferien';
+        label.style.color = '#92400E';
+      } else if (status[key]) {
         dot.style.background = '#22C55E';
         label.textContent = 'Jetzt geöffnet';
         label.style.color = '#16a34a';
