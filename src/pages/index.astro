@@ -7,65 +7,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 // angezeigt werden immer nur die nächsten 3.
 import { betriebsferien } from '../data/betriebsferien';
 
-// Notfallvertretung — Einträge ohne Zeitraum sind ganzjährig sichtbar; Einträge mit
-// start/end erscheinen clientseitig nur innerhalb ihres Zeitfensters (nach heutigem Datum).
+// Vertretende Praxen — Stammdaten je Praxis nur EINMAL pflegen.
+// Ändert sich eine Telefonnummer, genügt die Korrektur an dieser einen Stelle.
+const kollegen = {
+  vanKann:        { name: 'Ursula van Kann',            adresse: 'Traarer Rathausmarkt 7b · Krefeld', telefon: '02151 656770', telHref: 'tel:02151656770' },
+  ridderskamp:    { name: 'Dr. Paul Ridderskamp',       adresse: 'Oberstraße 37 · Krefeld',           telefon: '02151 480031', telHref: 'tel:02151480031' },
+  dannenbergHogh: { name: 'Dr. Bettina Dannenberg-Hogh', adresse: 'Rather Straße 15 · Krefeld',       telefon: '02151 560320', telHref: 'tel:02151560320' },
+};
+
+// Vertretungs-Einsätze — eine Zeile je Zeitraum. 'wer' verweist auf die Praxis oben.
+// Einträge erscheinen 14 Tage vor Beginn und verschwinden nach dem Enddatum.
+// Abgelaufene Einsätze können hier entfernt werden; die Stammdaten oben bleiben erhalten.
 const notfallvertretungen = [
-  {
-    name: 'Ursula van Kann',
-    adresse: 'Traarer Rathausmarkt 7b · Krefeld',
-    telefon: '02151 656770',
-    telHref: 'tel:02151656770',
-    zeitraum: 'In dringenden Fällen · 03.–18. August 2026',
-    hinweis: 'nur vormittags',
-    start: '2026-08-03',
-    end: '2026-08-18',
-  },
-  {
-    name: 'Dr. Paul Ridderskamp',
-    adresse: 'Oberstraße 37 · Krefeld',
-    telefon: '02151 480031',
-    telHref: 'tel:02151480031',
-    zeitraum: 'In dringenden Fällen · 10.–18. August 2026',
-    start: '2026-08-10',
-    end: '2026-08-18',
-  },
-  {
-    name: 'Dr. Paul Ridderskamp',
-    adresse: 'Oberstraße 37 · Krefeld',
-    telefon: '02151 480031',
-    telHref: 'tel:02151480031',
-    zeitraum: 'In dringenden Fällen · 04.–11. September 2026',
-    start: '2026-09-04',
-    end: '2026-09-11',
-  },
-  {
-    name: 'Dr. Bettina Dannenberg-Hogh',
-    adresse: 'Rather Straße 15 · Krefeld',
-    telefon: '02151 560320',
-    telHref: 'tel:02151560320',
-    zeitraum: 'In dringenden Fällen · 04.–11. September 2026',
-    start: '2026-09-04',
-    end: '2026-09-11',
-  },
-  {
-    name: 'Dr. Paul Ridderskamp',
-    adresse: 'Oberstraße 37 · Krefeld',
-    telefon: '02151 480031',
-    telHref: 'tel:02151480031',
-    zeitraum: 'In dringenden Fällen · 02.–06. November 2026',
-    start: '2026-11-02',
-    end: '2026-11-06',
-  },
-  {
-    name: 'Dr. Bettina Dannenberg-Hogh',
-    adresse: 'Rather Straße 15 · Krefeld',
-    telefon: '02151 560320',
-    telHref: 'tel:02151560320',
-    zeitraum: 'In dringenden Fällen · 02.–06. November 2026',
-    start: '2026-11-02',
-    end: '2026-11-06',
-  },
-];
+  { wer: 'ridderskamp',    zeitraum: 'In dringenden Fällen · 02.–06. November 2026', start: '2026-11-02', end: '2026-11-06' },
+  { wer: 'dannenbergHogh', zeitraum: 'In dringenden Fällen · 02.–06. November 2026', start: '2026-11-02', end: '2026-11-06' },
+].map(e => ({ ...kollegen[e.wer], ...e }));
 ---
 
 <BaseLayout
